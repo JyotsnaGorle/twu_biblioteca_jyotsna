@@ -3,7 +3,7 @@ package com.twu.biblioteca;
 /**
  * Created by jyotsna on 25/02/15.
  */
-public class Books {
+public class Book {
     String title;
     String author;
     String year_of_publishing;
@@ -23,12 +23,12 @@ public class Books {
     }
 
 
-    Books(String t,String a,String p){
+    Book(String t, String a, String p){
         this.title=t;
         this.author =a;
         this.year_of_publishing=p;
     }
-    public static Books createBook(String t, String a, String p) {
-        return new Books(t,a,p);
+    public static Book createBook(String t, String a, String p) {
+        return new Book(t,a,p);
     }
 }
