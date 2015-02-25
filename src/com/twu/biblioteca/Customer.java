@@ -3,7 +3,6 @@ package com.twu.biblioteca;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,32 +10,21 @@ import java.util.List;
  */
 
 public class Customer {
-List<Books> myBookList = new ArrayList<Books>();
 BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+    BibliotecaLibrary library = new BibliotecaLibrary();
     public String openBiblioteca() {
-         BibliotecaApp library = new BibliotecaApp();
-        return library.openApp();
+        return BibliotecaLibrary.openApp();
     }
 
-    public void selectOption(int choice) throws IOException {
-        switch (choice){
-            case 1:
-            {
-                System.out.println(BookList.viewListOfAllLibraryBooks());
-                break;
-            }
-            case 0:
-            {
-                System.exit(0);
-            }
-            default:{
-                throw new Invalid_choice_exception();
-            }
-        }
+    public int getChoice() throws IOException {
+        return Integer.parseInt(read.readLine());
     }
 
 
-    public String checkout() {
-        return "successful checkout";
+    public List<Book> borrowBook(String book_name) {
+        Book borrowed_book = library.is_book_available(book_name);
+        return library.checkout(book_name);
+
     }
+
 }

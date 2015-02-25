@@ -1,71 +1,65 @@
 package com.twu.biblioteca;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BibliotecaLibrary {
-    static Customer customer = new Customer();
-
-    public static void main(String[] args)throws IOException {
-        BibliotecaLibrary bibliotecaApp = new BibliotecaLibrary();
-        bibliotecaApp.openApp();
-        BookList.create_book_list();
-
-        bibliotecaApp.displayMenu();
-}
-
-    public  static void selectOption(int choice) throws IOException {
-        switch (choice){
-            case 1:
-            {
-                System.out.println(BookList.viewListOfAllLibraryBooks());
-                break;
-            }
-            case 2:{
-                try{
-                customer.displayMyBookList();
-                System.out.println("my books List");
-                }
-                catch (Customer_book_list_is_empty_exception e){
-                    System.out.println("your book list is empty");
-                    displayMenu();
-                }
-            }
-            case 0:
-            {
-                System.exit(0);
-            }
-            default:{
-                throw new Invalid_choice_exception();
-            }
-        }
+    List<Book> customerBookList= new ArrayList<Book>();
+    static List<Book> libraryBookList = new ArrayList<Book>(){{
+        add(Book.createBook("book1","author1","2012"));
+        add(Book.createBook("book2","author2","2012"));
+        add(Book.createBook("book3","author3","2012"));
+        add(Book.createBook("book4", "author4", "2012"));
     }
+    };
 
-    private static void displayMenu() throws IOException {
-        int choice;
-
-        System.out.printf("Your Options to View:" +
-                "\n 1. List Library Books\n"+
-                "\n 2. List My Books\n"+
-                "\n 3. Checkout\n"+
-                "\n 2. Return book \n"+
-                   "\n 0. Exit\n" );
-            do {
-                choice= customer.getChoice();
-                try {
-                    selectOption(choice);
-                }
-                catch (Invalid_choice_exception e){
-                    System.out.println("Oops! invalid choice,please Renter");
-                }
-            } while (choice!=0);
-        }
-
-    public String openApp() {
-        System.out.println("Welcome User");
+    public static String openApp() {
         return "welcome";
     }
 
-    public String viewList() {
-        return BookList.viewListOfAllLibraryBooks();
+    public void viewList() {
+        for(Book each : libraryBookList){
+            System.out.println(each.getTitle()+" "+each.getTitle()+" "+each.getYearOfPublishing());
+        }
     }
+
+    public  List<Book> checkout(String book_name) {
+//        for(Book each : listOfBooksInLibrary) {
+        if(is_book_available(book_name)!=null){
+            int size = libraryBookList.size();
+            for(int i=0;i<size-1;i++){
+                Book each_book = libraryBookList.get(i);
+                if(each_book.getTitle().equals(book_name)){
+            libraryBookList.remove(each_book);
+                    customerBookList.add(each_book);
+                    System.out.println("checkout successfull");
+                }
+            }
+        }
+        else {
+            System.out.println("Book not available");
+        }
+        return libraryBookList;
+        }
+
+    public  Book is_book_available(String book_name) {
+        for (Book each : libraryBookList) {
+            if (each.getTitle().equals(book_name)) {
+                return each;
+            }
+        }
+            return null;
+        }
+    public void displayMyBookList() {
+        if(customerBookList.isEmpty()){
+            throw new Customer_book_list_is_empty_exception();
+        }
+        else {
+            for(Book eachBook : customerBookList)
+                System.out.println(eachBook.getTitle()+" "+eachBook.getAuthor()+eachBook.getYearOfPublishing());
+        }
+    }
+
+
 }
+

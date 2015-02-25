@@ -6,7 +6,7 @@ package com.twu.biblioteca;
 public class Book {
     String title;
     String author;
-    String year_of_publishing;
+    String yearOfPublishing;
 
     public String getTitle() {
         return title;
@@ -18,15 +18,15 @@ public class Book {
     }
 
 
-    public String getYear_of_publishing() {
-        return year_of_publishing;
+    public String getYearOfPublishing() {
+        return yearOfPublishing;
     }
 
 
     Book(String t, String a, String p){
         this.title=t;
         this.author =a;
-        this.year_of_publishing=p;
+        this.yearOfPublishing =p;
     }
     public static Book createBook(String t, String a, String p) {
         return new Book(t,a,p);
