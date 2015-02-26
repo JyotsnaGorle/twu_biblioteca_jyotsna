@@ -12,20 +12,21 @@ import java.util.List;
 
 public class Customer {
 BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-    //non static becoz each customer will have his own book list
-      List<Book> myBookList = new ArrayList<Book>();
-    public String openBiblioteca() {
-    return BibliotecaLibrary.openApp();
+
+    public List<Book> getMyBookList() {
+        return myBookList;
     }
+
+    //non static becoz each customer will have his own book list
+      private List<Book> myBookList = new ArrayList<Book>();
 
     public int getChoice() throws IOException {
         return Integer.parseInt(read.readLine());
     }
 
 
-    public List<Book> borrowBook(int bookId) {
-        Book checkedBook = BibliotecaLibrary.checkout(bookId);
-        myBookList.add(checkedBook);
+    public List<Book> borrowBook(Book borrowedBook) {
+        myBookList.add(borrowedBook);
         System.out.println("successful checkout");
         handleDisplayMyBookList();
         return myBookList;
@@ -49,15 +50,17 @@ BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         return null;
     }
 
-    public List<Book> returnBook(int bookId) {
+    public Book returnBook(int bookId) {
+        if(myBookList.isEmpty()){
+            throw new customerBookListEmptyException();
+        }
         Book bookToBeReturned = isBookWithMe(bookId);
         if(bookToBeReturned!=null){
-            BibliotecaLibrary.returnBook(bookToBeReturned);
             myBookList.remove(bookToBeReturned);
             System.out.println("Successful return\n");
             handleDisplayMyBookList();
         }
-        return myBookList;
+        return bookToBeReturned;
     }
 
     private void handleDisplayMyBookList() {
@@ -67,6 +70,7 @@ BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
             displayMyBookList();
         } catch (customerBookListEmptyException e) {
             System.out.println("your book list is empty\n");
+            return;
         }
     }
 

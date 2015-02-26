@@ -8,12 +8,12 @@ import java.io.InputStreamReader;
  * Created by jyotsna on 25/02/15.
  */
 
-public class LibraryManager implements InputOutput {
-    LibraryManager(){
+public class BibliotecaApp {
+    BibliotecaApp(){
 
     }
     public static void main(String[] args) throws IOException {
-        LibraryManager manager = new LibraryManager();
+        BibliotecaApp manager = new BibliotecaApp();
         Customer customer = new Customer();
         manager.displayMenu(customer);
 
@@ -28,6 +28,7 @@ public class LibraryManager implements InputOutput {
                 "\n 1. List Library Books" +
                 "\n 2. Checkout" +
                 "\n 3. Return book" +
+                "\n 4. View My Book List" +
                 "\n 0. Exit");
 
             choice = customer.getChoice();
@@ -52,20 +53,35 @@ public class LibraryManager implements InputOutput {
             case 2: {
                 System.out.println("Enter Book Id");
                 int bookId = Integer.parseInt(read.readLine());
-                customer.borrowBook(bookId);
+                Book checkedBook = bibliotecaApp.checkout(bookId);
+                customer.borrowBook(checkedBook);
+                bibliotecaApp.viewLibraryBookList();
                 displayMenu(customer);
                 break;
             }
 
             case 3:{
+                if(customer.getMyBookList().isEmpty()){
+                    System.out.println("your book list is empty");
+                    displayMenu(customer);
+                    break;
+                }
                 System.out.println("Enter Book Id");
                 int bookId = Integer.parseInt(read.readLine());
-                customer.returnBook(bookId);
-                displayMenu(customer);
+                Book returnedBook = customer.returnBook(bookId);
+                bibliotecaApp.returnBook(returnedBook);
                 break;
             }
 
-
+            case 4:{
+                try {
+                    customer.displayMyBookList();
+                }catch (customerBookListEmptyException e){
+                    System.out.println("your book list is empty");
+                    displayMenu(customer);
+                }
+                break;
+            }
             case 0: {
                 System.exit(0);
             }
@@ -77,12 +93,5 @@ public class LibraryManager implements InputOutput {
     }
 
 
-    @Override
-    public void getInput() {
-    }
 
-    @Override
-    public void setOutput() {
-
-    }
 }
