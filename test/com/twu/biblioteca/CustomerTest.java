@@ -3,6 +3,10 @@ package com.twu.biblioteca;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+
+import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
+
 public class CustomerTest{
 
     @Test
@@ -14,8 +18,10 @@ public class CustomerTest{
 
     @Test
     public void is_customer_checkout_successful(){
+        BibliotecaLibrary biblioteca = new BibliotecaLibrary();
         Customer customer = new Customer();
-        Assert.assertNotNull(customer.borrowBook("book1"));
+        Book book = biblioteca.is_book_available("book1");
+        Assert.assertThat(customer.borrowBook("book1"), hasItem(book));
     }
 
     @Test(expected = customerBookListEmptyException.class)
@@ -24,17 +30,12 @@ public class CustomerTest{
         customer.displayMyBookList();
     }
 
-//    @Test
-//    public void is_book_with_customer(){
-//        Customer customer = new Customer();
-//        Assert.assertNotNull(customer.isBookWithMe("book1"));
-//    }
-
-//    @Test
-//    public void is_return_successful(){
-//        Customer customer= new Customer();
-//        customer.returnBook("book1");
-//    }
+    @Test
+    public void is_return_successful(){
+        Customer customer= new Customer();
+        List<Book> myBookListAfterReturn = customer.returnBook("book1");
+        Assert.assertNotNull(myBookListAfterReturn);
+    }
 
 
 }

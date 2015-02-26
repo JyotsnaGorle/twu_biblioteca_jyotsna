@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Customer {
 BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-     List<Book> myBookList = new ArrayList<Book>();
+     private List<Book> myBookList = new ArrayList<Book>();
     public String openBiblioteca() {
     return BibliotecaLibrary.openApp();
     }
@@ -26,22 +26,22 @@ BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         Book checkedBook = BibliotecaLibrary.checkout(book_name);
         myBookList.add(checkedBook);
         System.out.println("successful checkout");
-        return myBookList;
+        return getMyBookList();
     }
 
 
     public void displayMyBookList() {
-        if(myBookList.isEmpty()){
+        if(getMyBookList().isEmpty()){
             throw new customerBookListEmptyException();
         }
         else {
-            for(Book eachBook : myBookList)
+            for(Book eachBook : getMyBookList())
                 System.out.println(eachBook.getTitle()+" "+eachBook.getAuthor()+eachBook.getYearOfPublishing());
         }
     }
 
     public Book isBookWithMe(String bookName) {
-        for(Book each:myBookList){
+        for(Book each: getMyBookList()){
             if(each.getTitle().equals(bookName))
                 return each;
         }
@@ -49,4 +49,16 @@ BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
     }
 
 
+    public List<Book> getMyBookList() {
+        return myBookList;
+    }
+
+
+    public List<Book> returnBook(String bookName) {
+        Book bookToBeReturned = isBookWithMe(bookName);
+        if(bookToBeReturned!=null){
+            myBookList.remove(bookToBeReturned);
+        }
+        return myBookList;
+    }
 }
