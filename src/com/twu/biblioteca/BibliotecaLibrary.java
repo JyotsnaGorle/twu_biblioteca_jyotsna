@@ -8,7 +8,7 @@ public class BibliotecaLibrary {
     BibliotecaLibrary(){
         booksInLibrary = BookList.libraryBookList;
     }
-
+    // static becoz booksInLibrary can be accessed by any customer
     static List<Book> booksInLibrary = new ArrayList<Book>();
 
     public static String openApp() {
@@ -22,11 +22,8 @@ public class BibliotecaLibrary {
     }
 
     public static Book checkout(String book_name) {
-//        for(Book each : listOfBooksInLibrary) {
         if(is_book_available(book_name)!=null){
-            int size = booksInLibrary.size();
-            for(int i=0;i<size-1;i++){
-                Book each_book = booksInLibrary.get(i);
+        for(Book each_book : booksInLibrary) {
                 if(each_book.getTitle().equals(book_name)){
             booksInLibrary.remove(each_book);
                     return each_book;
@@ -51,5 +48,8 @@ public class BibliotecaLibrary {
         }
 
 
+    public static void returnBook(Book bookToBeReturned) {
+        booksInLibrary.add(bookToBeReturned);
+    }
 }
 

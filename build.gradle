@@ -1,0 +1,39 @@
+apply plugin :"java"
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+        resources {
+            srcDir 'src/resources'
+        }
+    }
+    test {
+            java {
+                srcDir 'test'
+            }
+        }
+
+}
+
+repositories{
+    mavenLocal()
+    mavenCentral()
+}
+dependencies{
+    testCompile group:'junit', name:'junit',version:'4.+'
+}
+
+sourceCompatibility=1.5
+version ='1.0'
+jar{
+    manifest{
+        attributes 'Implementation-Tittle':'biblioteca App',
+                    'Implementation-Version':version
+    }
+}
+
+
+
+

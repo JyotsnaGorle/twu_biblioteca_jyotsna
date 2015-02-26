@@ -12,7 +12,8 @@ import java.util.List;
 
 public class Customer {
 BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-     private List<Book> myBookList = new ArrayList<Book>();
+    //non static becoz each customer will have his own book list
+      List<Book> myBookList = new ArrayList<Book>();
     public String openBiblioteca() {
     return BibliotecaLibrary.openApp();
     }
@@ -26,38 +27,34 @@ BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         Book checkedBook = BibliotecaLibrary.checkout(book_name);
         myBookList.add(checkedBook);
         System.out.println("successful checkout");
-        return getMyBookList();
+        return myBookList;
     }
 
 
     public void displayMyBookList() {
-        if(getMyBookList().isEmpty()){
+        if(myBookList.isEmpty()){
             throw new customerBookListEmptyException();
         }
         else {
-            for(Book eachBook : getMyBookList())
+            for(Book eachBook :myBookList)
                 System.out.println(eachBook.getTitle()+" "+eachBook.getAuthor()+eachBook.getYearOfPublishing());
         }
     }
 
     public Book isBookWithMe(String bookName) {
-        for(Book each: getMyBookList()){
+        for(Book each: myBookList){
             if(each.getTitle().equals(bookName))
                 return each;
         }
         return null;
     }
 
-
-    public List<Book> getMyBookList() {
-        return myBookList;
-    }
-
-
     public List<Book> returnBook(String bookName) {
         Book bookToBeReturned = isBookWithMe(bookName);
         if(bookToBeReturned!=null){
+            BibliotecaLibrary.returnBook(bookToBeReturned);
             myBookList.remove(bookToBeReturned);
+
         }
         return myBookList;
     }

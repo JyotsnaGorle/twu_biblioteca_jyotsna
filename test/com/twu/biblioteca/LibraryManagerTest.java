@@ -8,7 +8,7 @@ public class LibraryManagerTest {
     @Test(expected = Invalid_choice_exception.class)
     public void is_option_available() throws IOException {
         LibraryManager manager = new LibraryManager();
-        Customer customer= new Customer();
+        Customer customer = new Customer();
         manager.selectOption(customer, 6);
 
     }

@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by jyotsna on 25/02/15.
@@ -22,9 +24,8 @@ public class LibraryManager {
 
         System.out.printf("Your Options to View:" +
                 "\n 1. List Library Books\n" +
-                "\n 2. List My Books\n" +
-                "\n 3. Checkout\n" +
-                "\n 4. Return book \n" +
+                "\n 2. Checkout\n" +
+                "\n 3. Return book \n" +
                 "\n 0. Exit\n");
         do {
             choice = customer.getChoice();
@@ -38,34 +39,47 @@ public class LibraryManager {
 
     public void selectOption(Customer customer, int choice) throws IOException {
         BibliotecaLibrary bibliotecaApp = new BibliotecaLibrary();
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 
         switch (choice) {
             case 1: {
                 bibliotecaApp.viewLibraryBookList();
-                bibliotecaApp.is_book_available("book1");
-                break;
-            }
-            case 2: {
-                try {
-                    customer.displayMyBookList();
-                    System.out.println("my books List");
-                } catch (customerBookListEmptyException e) {
-                    System.out.println("your book list is empty");
-                    displayMenu();
-                }
-                break;
-            }
-            case 3: {
-                customer.borrowBook("book1");
                 displayMenu();
                 break;
             }
+            case 2: {
+                System.out.println("Enter Book Name");
+                String bookName = read.readLine();
+                customer.borrowBook(bookName);
+                DisplayCustomerListAndHandleEmptyCustomerList(customer);
+                break;
+            }
+
+            case 3:{
+                System.out.println("Enter Book Name");
+                String bookName = read.readLine();
+                customer.returnBook(bookName);
+                DisplayCustomerListAndHandleEmptyCustomerList(customer);
+                break;
+            }
+
+
             case 0: {
                 System.exit(0);
             }
             default: {
                 throw new Invalid_choice_exception();
             }
+        }
+    }
+
+    private void DisplayCustomerListAndHandleEmptyCustomerList(Customer customer) throws IOException {
+        try {
+            System.out.println("my books List");
+            customer.displayMyBookList();
+        } catch (customerBookListEmptyException e) {
+            System.out.println("your book list is empty");
+            displayMenu();
         }
     }
 }

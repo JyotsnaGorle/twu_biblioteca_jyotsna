@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Created by jyotsna on 26/02/15.
  */
+// this class is a master copy of all the books the library owns
 public class BookList {
     List<Book> booksOfLibrary = new ArrayList<Book>();
     BookList(){
