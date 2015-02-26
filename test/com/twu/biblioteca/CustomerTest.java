@@ -20,8 +20,8 @@ public class CustomerTest{
     public void is_customer_checkout_successful(){
         BibliotecaLibrary biblioteca = new BibliotecaLibrary();
         Customer customer = new Customer();
-        Book book = biblioteca.is_book_available("book1");
-        Assert.assertThat(customer.borrowBook("book1"), hasItem(book));
+        Book book = biblioteca.is_book_available(1);
+        Assert.assertThat(customer.borrowBook(1), hasItem(book));
     }
 
     @Test(expected = customerBookListEmptyException.class)
@@ -33,7 +33,7 @@ public class CustomerTest{
     @Test
     public void is_return_successful(){
         Customer customer= new Customer();
-        List<Book> myBookListAfterReturn = customer.returnBook("book1");
+        List<Book> myBookListAfterReturn = customer.returnBook(1);
         Assert.assertNotNull(myBookListAfterReturn);
     }
 

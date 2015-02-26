@@ -7,34 +7,35 @@ import java.io.InputStreamReader;
 /**
  * Created by jyotsna on 25/02/15.
  */
-public class LibraryManager {
+
+public class LibraryManager implements InputOutput {
     LibraryManager(){
 
     }
     public static void main(String[] args) throws IOException {
         LibraryManager manager = new LibraryManager();
-        manager.displayMenu();
+        Customer customer = new Customer();
+        manager.displayMenu(customer);
 
     }
 
 
-    private void displayMenu() throws IOException {
+    private void displayMenu(Customer customer) throws IOException {
         int choice;
-        Customer customer = new Customer();
 
-        System.out.printf("Your Options to View:" +
-                "\n 1. List Library Books\n" +
-                "\n 2. Checkout\n" +
-                "\n 3. Return book \n" +
-                "\n 0. Exit\n");
         do {
+            System.out.printf("Your Options to View:" +
+                "\n 1. List Library Books" +
+                "\n 2. Checkout" +
+                "\n 3. Return book" +
+                "\n 0. Exit");
+
             choice = customer.getChoice();
-            try {
-                selectOption(customer,choice);
-            } catch (Invalid_choice_exception e) {
-                System.out.println("Oops! invalid choice,please Renter");
-            }
-        } while (choice != 0);
+
+                selectOption(customer, choice);
+            }while (choice!=0);
+
+
     }
 
     public void selectOption(Customer customer, int choice) throws IOException {
@@ -43,23 +44,24 @@ public class LibraryManager {
 
         switch (choice) {
             case 1: {
+                System.out.println("Book ID   Book Title    Author Name   Year Published");
                 bibliotecaApp.viewLibraryBookList();
-                displayMenu();
+                displayMenu(customer);
                 break;
             }
             case 2: {
-                System.out.println("Enter Book Name");
-                String bookName = read.readLine();
-                customer.borrowBook(bookName);
-                DisplayCustomerListAndHandleEmptyCustomerList(customer);
+                System.out.println("Enter Book Id");
+                int bookId = Integer.parseInt(read.readLine());
+                customer.borrowBook(bookId);
+                displayMenu(customer);
                 break;
             }
 
             case 3:{
-                System.out.println("Enter Book Name");
-                String bookName = read.readLine();
-                customer.returnBook(bookName);
-                DisplayCustomerListAndHandleEmptyCustomerList(customer);
+                System.out.println("Enter Book Id");
+                int bookId = Integer.parseInt(read.readLine());
+                customer.returnBook(bookId);
+                displayMenu(customer);
                 break;
             }
 
@@ -68,18 +70,19 @@ public class LibraryManager {
                 System.exit(0);
             }
             default: {
-                throw new Invalid_choice_exception();
+                System.out.println("Oops! invalid choice,please Renter");
+                break;
             }
         }
     }
 
-    private void DisplayCustomerListAndHandleEmptyCustomerList(Customer customer) throws IOException {
-        try {
-            System.out.println("my books List");
-            customer.displayMyBookList();
-        } catch (customerBookListEmptyException e) {
-            System.out.println("your book list is empty");
-            displayMenu();
-        }
+
+    @Override
+    public void getInput() {
+    }
+
+    @Override
+    public void setOutput() {
+
     }
 }

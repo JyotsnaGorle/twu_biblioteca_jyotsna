@@ -13,10 +13,10 @@ public class BookList {
         this.booksOfLibrary = libraryBookList;
     }
     static List<Book> libraryBookList = new ArrayList<Book>(){{
-        add(Book.createBook("book1","author1","2012"));
-        add(Book.createBook("book2","author2","2012"));
-        add(Book.createBook("book3","author3","2012"));
-        add(Book.createBook("book4", "author4", "2012"));
+        add(Book.createBook(1,"book1","author1","2012"));
+        add(Book.createBook(2,"book2","author2","2012"));
+        add(Book.createBook(3,"book3","author3","2012"));
+        add(Book.createBook(4,"book4", "author4", "2012"));
     }
     };
 }

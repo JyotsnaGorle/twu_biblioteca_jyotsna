@@ -23,13 +23,13 @@ BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
     }
 
 
-    public List<Book> borrowBook(String book_name) {
-        Book checkedBook = BibliotecaLibrary.checkout(book_name);
+    public List<Book> borrowBook(int bookId) {
+        Book checkedBook = BibliotecaLibrary.checkout(bookId);
         myBookList.add(checkedBook);
         System.out.println("successful checkout");
+        handleDisplayMyBookList();
         return myBookList;
     }
-
 
     public void displayMyBookList() {
         if(myBookList.isEmpty()){
@@ -37,25 +37,37 @@ BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         }
         else {
             for(Book eachBook :myBookList)
-                System.out.println(eachBook.getTitle()+" "+eachBook.getAuthor()+eachBook.getYearOfPublishing());
+                System.out.println(eachBook.getBookId()+" \t\t   "+eachBook.getTitle()+" \t\t    "+eachBook.getAuthor()+" \t \t   "+eachBook.getYearOfPublishing());
         }
     }
 
-    public Book isBookWithMe(String bookName) {
+    public Book isBookWithMe(int bookId) {
         for(Book each: myBookList){
-            if(each.getTitle().equals(bookName))
+            if(each.getBookId()==bookId)
                 return each;
         }
         return null;
     }
 
-    public List<Book> returnBook(String bookName) {
-        Book bookToBeReturned = isBookWithMe(bookName);
+    public List<Book> returnBook(int bookId) {
+        Book bookToBeReturned = isBookWithMe(bookId);
         if(bookToBeReturned!=null){
             BibliotecaLibrary.returnBook(bookToBeReturned);
             myBookList.remove(bookToBeReturned);
-
+            System.out.println("Successful return\n");
+            handleDisplayMyBookList();
         }
         return myBookList;
     }
+
+    private void handleDisplayMyBookList() {
+        try {
+            System.out.println("My books List");
+            System.out.println("Book ID   Book Title    Author Name   Year Published");
+            displayMyBookList();
+        } catch (customerBookListEmptyException e) {
+            System.out.println("your book list is empty\n");
+        }
+    }
+
 }

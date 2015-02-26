@@ -17,14 +17,14 @@ public class BibliotecaLibrary {
 
     public void viewLibraryBookList() {
         for(Book each : booksInLibrary){
-            System.out.println(each.getTitle()+" "+each.getTitle()+" "+each.getYearOfPublishing());
+            System.out.println(each.getBookId()+" \t\t   "+each.getTitle()+" \t\t    "+each.getAuthor()+" \t \t   "+each.getYearOfPublishing());
         }
     }
 
-    public static Book checkout(String book_name) {
-        if(is_book_available(book_name)!=null){
+    public static Book checkout(int bookId) {
+        if(is_book_available(bookId)!=null){
         for(Book each_book : booksInLibrary) {
-                if(each_book.getTitle().equals(book_name)){
+                if(each_book.getBookId()==bookId){
             booksInLibrary.remove(each_book);
                     return each_book;
                 }
@@ -38,9 +38,9 @@ public class BibliotecaLibrary {
 
 
 
-    public static Book is_book_available(String book_name) {
+    public static Book is_book_available(int bookId) {
         for (Book each : booksInLibrary) {
-            if (each.getTitle().equals(book_name)) {
+            if (each.getBookId()==bookId) {
                 return each;
             }
         }
