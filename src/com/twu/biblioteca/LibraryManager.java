@@ -11,8 +11,6 @@ public class LibraryManager {
     }
     public static void main(String[] args) throws IOException {
         LibraryManager manager = new LibraryManager();
-//        System.out.println(BibliotecaLibrary.openApp());
-        BibliotecaLibrary library = new BibliotecaLibrary();
         manager.displayMenu();
 
     }
@@ -26,7 +24,7 @@ public class LibraryManager {
                 "\n 1. List Library Books\n" +
                 "\n 2. List My Books\n" +
                 "\n 3. Checkout\n" +
-                "\n 2. Return book \n" +
+                "\n 4. Return book \n" +
                 "\n 0. Exit\n");
         do {
             choice = customer.getChoice();
@@ -43,7 +41,7 @@ public class LibraryManager {
 
         switch (choice) {
             case 1: {
-                bibliotecaApp.viewList();
+                bibliotecaApp.viewLibraryBookList();
                 bibliotecaApp.is_book_available("book1");
                 break;
             }
@@ -51,14 +49,16 @@ public class LibraryManager {
                 try {
                     customer.displayMyBookList();
                     System.out.println("my books List");
-                } catch (Customer_book_list_is_empty_exception e) {
+                } catch (customerBookListEmptyException e) {
                     System.out.println("your book list is empty");
                     displayMenu();
                 }
+                break;
             }
             case 3: {
                 customer.borrowBook("book1");
                 displayMenu();
+                break;
             }
             case 0: {
                 System.exit(0);

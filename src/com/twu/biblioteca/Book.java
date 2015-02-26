@@ -23,12 +23,12 @@ public class Book {
     }
 
 
-    Book(String t, String a, String p){
-        this.title=t;
-        this.author =a;
-        this.yearOfPublishing =p;
+    Book(String title, String author, String publishedYear){
+        this.title=title;
+        this.author =author;
+        this.yearOfPublishing =publishedYear;
     }
-    public static Book createBook(String t, String a, String p) {
-        return new Book(t,a,p);
+    public static Book createBook(String title1, String author1, String publishedYear) {
+        return new Book(title1,author1,publishedYear);
     }
 }

@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,9 +12,9 @@ import java.util.List;
 
 public class Customer {
 BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
-    BibliotecaLibrary library = new BibliotecaLibrary();
+     List<Book> myBookList = new ArrayList<Book>();
     public String openBiblioteca() {
-        return BibliotecaLibrary.openApp();
+    return BibliotecaLibrary.openApp();
     }
 
     public int getChoice() throws IOException {
@@ -22,9 +23,30 @@ BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 
 
     public List<Book> borrowBook(String book_name) {
-        Book borrowed_book = library.is_book_available(book_name);
-        return library.checkout(book_name);
-
+        Book checkedBook = BibliotecaLibrary.checkout(book_name);
+        myBookList.add(checkedBook);
+        System.out.println("successful checkout");
+        return myBookList;
     }
+
+
+    public void displayMyBookList() {
+        if(myBookList.isEmpty()){
+            throw new customerBookListEmptyException();
+        }
+        else {
+            for(Book eachBook : myBookList)
+                System.out.println(eachBook.getTitle()+" "+eachBook.getAuthor()+eachBook.getYearOfPublishing());
+        }
+    }
+
+    public Book isBookWithMe(String bookName) {
+        for(Book each:myBookList){
+            if(each.getTitle().equals(bookName))
+                return each;
+        }
+        return null;
+    }
+
 
 }
