@@ -17,6 +17,9 @@ sourceSets {
         }
 
 }
+task createWrapper(type: Wrapper) {
+            gradleVersion = '0.9-preview-1'
+}
 
 repositories{
     mavenCentral()

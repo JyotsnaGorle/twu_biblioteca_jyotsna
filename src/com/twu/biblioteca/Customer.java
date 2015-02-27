@@ -26,7 +26,7 @@ public class Customer {
 
     public List<Book> borrowBook(Book borrowedBook) {
         myBookList.add(borrowedBook);
-        System.out.println("successful checkout");
+        System.out.println("SUCCESSFUL CHECKOUT! ENJOY THE BOOK "+borrowedBook.getTitle());
         return myBookList;
     }
 
@@ -55,7 +55,7 @@ public class Customer {
         Book bookToBeReturned = isBookWithMe(bookId);
         if (bookToBeReturned != null) {
             myBookList.remove(bookToBeReturned);
-            System.out.println("Successful return of book " + bookId + "\n");
+            System.out.println("THANK YOU FOR RETURNING THE BOOK " + bookToBeReturned.getTitle() + "\n");
         }
         return bookToBeReturned;
     }

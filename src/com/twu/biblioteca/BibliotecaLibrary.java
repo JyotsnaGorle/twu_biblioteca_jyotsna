@@ -11,13 +11,12 @@ public class BibliotecaLibrary {
 
      List<Book> booksInLibrary = new ArrayList<Book>();
 
-    public String openApp() {
-        return "welcome";
-    }
 
     public void viewLibraryBookList() {
                 for(Book each : booksInLibrary) {
+            System.out.println("----------------------------------------------------");
             System.out.println(each.getBookId() + " \t\t   " + each.getTitle() + " \t\t    " + each.getAuthor() + " \t \t   " + each.getYearOfPublishing());
+            System.out.println("----------------------------------------------------");
         }
     }
 

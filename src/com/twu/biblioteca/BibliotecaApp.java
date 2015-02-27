@@ -25,7 +25,7 @@ public class BibliotecaApp {
     }
 
     public void startApp(){
-        inputOutputManager.writeOutput("WELCOME TO BIBLIOTECA");
+        inputOutputManager.writeOutput("-------WELCOME TO BIBLIOTECA--------");
     }
     private void displayMenu(BibliotecaLibrary bibliotecaApp, Customer customer) throws IOException {
         int choice;
@@ -56,7 +56,7 @@ public class BibliotecaApp {
                 break;
             }
             case 2: {
-                inputOutputManager.writeOutput("Enter Book Id");
+                inputOutputManager.writeOutput("\tEnter Book Id");
                 String bookId = inputOutputManager.getInput();
                 Book checkedBook = bibliotecaApp.checkout(bookId);
                 if(checkedBook!=null){
@@ -65,18 +65,18 @@ public class BibliotecaApp {
                 break;
                 }
                 else {
-                    inputOutputManager.writeOutput("invalid book");
+                    inputOutputManager.writeOutput("------This is an Invalid book------");
                     break;
                 }
             }
 
             case 3:{
                 if(customer.getMyBookList().isEmpty()){
-                    inputOutputManager.writeOutput("your book list is empty");
+                    inputOutputManager.writeOutput("---------your book list is empty---------");
                     displayMenu(bibliotecaApp, customer);
                     break;
                 }
-                inputOutputManager.writeOutput("Enter Book Id");
+                inputOutputManager.writeOutput("\tEnter Book Id");
                 String bookId = inputOutputManager.getInput();
                 Book returnedBook = customer.returnBook(bookId);
                 if(returnedBook!=null){
@@ -85,7 +85,7 @@ public class BibliotecaApp {
                     break;
                 }
                 else {
-                    inputOutputManager.writeOutput("you don't have this book");
+                    inputOutputManager.writeOutput("YOU DON'T HAVE THIS BOOK");
                 break;
                 }
             }
@@ -94,7 +94,7 @@ public class BibliotecaApp {
                 try {
                     customer.displayMyBookList();
                 }catch (customerBookListEmptyException e){
-                    inputOutputManager.writeOutput("your book list is empty");
+                    inputOutputManager.writeOutput("-------your book list is empty---------");
                     displayMenu(bibliotecaApp, customer);
                 }
                 break;
