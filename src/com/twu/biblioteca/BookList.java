@@ -8,9 +8,6 @@ import java.util.List;
  */
 // this class is a master copy of all the books the library owns
 public class BookList {
-    public List<Book> getBooks() {
-        return books;
-    }
 
     List<Book> books = new ArrayList<Book>();
 

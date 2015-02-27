@@ -11,14 +11,13 @@ import java.util.List;
  */
 
 public class Customer {
-BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+    BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 
     public List<Book> getMyBookList() {
         return myBookList;
     }
 
-    //non static becoz each customer will have his own book list
-      private List<Book> myBookList = new ArrayList<Book>();
+    private List<Book> myBookList = new ArrayList<Book>();
 
     public int getChoice() throws IOException {
         return Integer.parseInt(read.readLine());
@@ -26,36 +25,38 @@ BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 
 
     public List<Book> borrowBook(Book borrowedBook) {
+        System.out.println(borrowedBook.getBookId());
         myBookList.add(borrowedBook);
+        displayMyBookList();
         System.out.println("successful checkout");
         handleDisplayMyBookList();
         return myBookList;
     }
 
     public void displayMyBookList() {
-        if(myBookList.isEmpty()){
+        if (myBookList.isEmpty()) {
             throw new customerBookListEmptyException();
-        }
-        else {
-            for(Book eachBook :myBookList)
-                System.out.println(eachBook.getBookId()+" \t\t   "+eachBook.getTitle()+" \t\t    "+eachBook.getAuthor()+" \t \t   "+eachBook.getYearOfPublishing());
+        } else {
+            for (Book eachBook : myBookList) {
+                System.out.println(eachBook.getBookId() + " \t\t   " + eachBook.getTitle() + " \t\t    " + eachBook.getAuthor() + " \t \t   " + eachBook.getYearOfPublishing());
+            }
         }
     }
 
     public Book isBookWithMe(int bookId) {
-        for(Book each: myBookList){
-            if(each.getBookId()==bookId)
+        for (Book each : myBookList) {
+            if (each.getBookId() == bookId)
                 return each;
         }
         return null;
     }
 
     public Book returnBook(int bookId) {
-        if(myBookList.isEmpty()){
+        if (myBookList.isEmpty()) {
             throw new customerBookListEmptyException();
         }
         Book bookToBeReturned = isBookWithMe(bookId);
-        if(bookToBeReturned!=null){
+        if (bookToBeReturned != null) {
             myBookList.remove(bookToBeReturned);
             System.out.println("Successful return\n");
             handleDisplayMyBookList();

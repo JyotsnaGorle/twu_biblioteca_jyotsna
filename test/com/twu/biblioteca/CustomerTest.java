@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.internal.matchers.IsCollectionContaining.hasItem;
+import static org.hamcrest.Matchers.hasItem;
 
 public class CustomerTest{
 

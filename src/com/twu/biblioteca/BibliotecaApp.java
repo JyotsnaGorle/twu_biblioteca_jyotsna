@@ -14,13 +14,14 @@ public class BibliotecaApp {
     }
     public static void main(String[] args) throws IOException {
         BibliotecaApp manager = new BibliotecaApp();
+        BibliotecaLibrary bibliotecaApp = new BibliotecaLibrary();
         Customer customer = new Customer();
-        manager.displayMenu(customer);
+        manager.displayMenu(bibliotecaApp,customer);
 
     }
 
 
-    private void displayMenu(Customer customer) throws IOException {
+    private void displayMenu(BibliotecaLibrary bibliotecaApp, Customer customer) throws IOException {
         int choice;
 
         do {
@@ -33,44 +34,55 @@ public class BibliotecaApp {
 
             choice = customer.getChoice();
 
-                selectOption(customer, choice);
+                selectOption(bibliotecaApp,customer, choice);
             }while (choice!=0);
 
 
     }
 
-    public void selectOption(Customer customer, int choice) throws IOException {
-        BibliotecaLibrary bibliotecaApp = new BibliotecaLibrary();
+    public void selectOption(BibliotecaLibrary bibliotecaApp, Customer customer, int choice) throws IOException {
         BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 
         switch (choice) {
             case 1: {
                 System.out.println("Book ID   Book Title    Author Name   Year Published");
                 bibliotecaApp.viewLibraryBookList();
-                displayMenu(customer);
+                displayMenu(bibliotecaApp, customer);
                 break;
             }
             case 2: {
                 System.out.println("Enter Book Id");
                 int bookId = Integer.parseInt(read.readLine());
                 Book checkedBook = bibliotecaApp.checkout(bookId);
+                if(checkedBook!=null){
                 customer.borrowBook(checkedBook);
-                bibliotecaApp.viewLibraryBookList();
-                displayMenu(customer);
+                displayMenu(bibliotecaApp, customer);
                 break;
+                }
+                else {
+                    System.out.println("invalid book");
+                    break;
+                }
             }
 
             case 3:{
                 if(customer.getMyBookList().isEmpty()){
                     System.out.println("your book list is empty");
-                    displayMenu(customer);
+                    displayMenu(bibliotecaApp, customer);
                     break;
                 }
                 System.out.println("Enter Book Id");
                 int bookId = Integer.parseInt(read.readLine());
                 Book returnedBook = customer.returnBook(bookId);
-                bibliotecaApp.returnBook(returnedBook);
+                if(returnedBook!=null){
+                    bibliotecaApp.returnBook(returnedBook);
+                    displayMenu(bibliotecaApp,customer);
+                    break;
+                }
+                else {
+                    System.out.println("you don't have this book");
                 break;
+                }
             }
 
             case 4:{
@@ -78,7 +90,7 @@ public class BibliotecaApp {
                     customer.displayMyBookList();
                 }catch (customerBookListEmptyException e){
                     System.out.println("your book list is empty");
-                    displayMenu(customer);
+                    displayMenu(bibliotecaApp, customer);
                 }
                 break;
             }

@@ -9,7 +9,6 @@ public class BibliotecaLibrary {
         booksInLibrary = books.listOfBooks;
     }
 
-    // static becoz booksInLibrary can be accessed by any customer
      List<Book> booksInLibrary = new ArrayList<Book>();
 
     public String openApp() {
@@ -17,12 +16,12 @@ public class BibliotecaLibrary {
     }
 
     public void viewLibraryBookList() {
-        for (Book each : booksInLibrary) {
+                for(Book each : booksInLibrary) {
             System.out.println(each.getBookId() + " \t\t   " + each.getTitle() + " \t\t    " + each.getAuthor() + " \t \t   " + each.getYearOfPublishing());
         }
     }
 
-    public Book checkout(int bookId) {
+    public Book checkout(int bookId){
         Book book_available = is_book_available(bookId);
         if (book_available != null) {
 //        for(Book each_book : booksInLibrary) {
@@ -32,11 +31,9 @@ public class BibliotecaLibrary {
 //                }
 //            }
             booksInLibrary.remove(book_available);
-            viewLibraryBookList();
             return book_available;
         } else
-            System.out.println("Book not available");
-        return null;
+            return null;
     }
 
 
