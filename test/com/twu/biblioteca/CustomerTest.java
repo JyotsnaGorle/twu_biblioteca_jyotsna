@@ -9,23 +9,23 @@ import static org.hamcrest.Matchers.hasItem;
 public class CustomerTest{
 
     @Test
-    public void is_customer_checkout_successful(){
-        BibliotecaLibrary biblioteca = new BibliotecaLibrary();
+    public void isCustomerCheckoutSuccessful(){
+        BibliotecaLibrary library = new BibliotecaLibrary();
         Customer customer = new Customer();
-        Book book = biblioteca.checkout("1");
+        Book book = library.checkout("1");
         Assert.assertThat(customer.borrowBook(book), hasItem(book));
     }
 
     @Test(expected = customerBookListEmptyException.class)
-    public void is_customer_book_list_empty_or_not(){
+    public void isCustomerBookListEmptyOrNot(){
         Customer customer= new Customer();
         customer.displayMyBookList();
     }
 
     @Test
-    public void is_return_successful(){
-        BibliotecaLibrary biblioteca = new BibliotecaLibrary();
-        Book book = biblioteca.checkout("1");
+    public void isReturnSuccessful(){
+        BibliotecaLibrary library = new BibliotecaLibrary();
+        Book book = library.checkout("1");
         Customer customer= new Customer();
         customer.borrowBook(book);
         Book returnedBook = customer.returnBook("1");

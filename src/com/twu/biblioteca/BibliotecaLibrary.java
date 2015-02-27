@@ -22,7 +22,7 @@ public class BibliotecaLibrary {
     }
 
     public Book checkout(String bookId){
-        Book book_available = is_book_available(bookId);
+        Book book_available = isBookAvailable(bookId);
         if (book_available != null) {
             booksInLibrary.remove(book_available);
             return book_available;
@@ -31,7 +31,7 @@ public class BibliotecaLibrary {
     }
 
 
-    public Book is_book_available(String bookId) {
+    public Book isBookAvailable(String bookId) {
         for (Book each : booksInLibrary) {
             if (each.getBookId().equals(bookId)) {
                 return each;

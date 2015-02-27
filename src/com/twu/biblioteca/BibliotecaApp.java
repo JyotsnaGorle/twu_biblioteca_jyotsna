@@ -9,29 +9,34 @@ import java.io.InputStreamReader;
  */
 
 public class BibliotecaApp {
-    BibliotecaApp(){
 
+    private InputOutputManager inputOutputManager;
+
+    public BibliotecaApp(InputOutputManager inputOutputManager) {
+        this.inputOutputManager = inputOutputManager;
     }
+
     public static void main(String[] args) throws IOException {
-        BibliotecaApp manager = new BibliotecaApp();
-        BibliotecaLibrary bibliotecaApp = new BibliotecaLibrary();
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(new ConsoleIODevice());
+        bibliotecaApp.startApp();
+        BibliotecaLibrary library = new BibliotecaLibrary();
         Customer customer = new Customer();
-        manager.displayMenu(bibliotecaApp,customer);
-
+        bibliotecaApp.displayMenu(library, customer);
     }
 
-
+    public void startApp(){
+        inputOutputManager.writeOutput("WELCOME TO BIBLIOTECA");
+    }
     private void displayMenu(BibliotecaLibrary bibliotecaApp, Customer customer) throws IOException {
         int choice;
 
         do {
-            System.out.printf("Your Options to View:" +
-                "\n 1. List Library Books" +
-                "\n 2. Checkout" +
-                "\n 3. Return book" +
-                "\n 4. View My Book List" +
-                "\n 0. Exit");
-
+            inputOutputManager.writeOutput("Your Options to View:" +
+                    "\n 1. List Library Books" +
+                    "\n 2. Checkout" +
+                    "\n 3. Return book" +
+                    "\n 4. View My Book List" +
+                    "\n 0. Exit");
             choice = customer.getChoice();
 
                 selectOption(bibliotecaApp,customer, choice);
@@ -45,14 +50,14 @@ public class BibliotecaApp {
 
         switch (choice) {
             case 1: {
-                System.out.println("Book ID   Book Title    Author Name   Year Published");
+               inputOutputManager.writeOutput("Book ID   Book Title    Author Name   Year Published");
                 bibliotecaApp.viewLibraryBookList();
                 displayMenu(bibliotecaApp, customer);
                 break;
             }
             case 2: {
-                System.out.println("Enter Book Id");
-                String bookId = read.readLine();
+                inputOutputManager.writeOutput("Enter Book Id");
+                String bookId = inputOutputManager.getInput();
                 Book checkedBook = bibliotecaApp.checkout(bookId);
                 if(checkedBook!=null){
                 customer.borrowBook(checkedBook);
@@ -60,19 +65,19 @@ public class BibliotecaApp {
                 break;
                 }
                 else {
-                    System.out.println("invalid book");
+                    inputOutputManager.writeOutput("invalid book");
                     break;
                 }
             }
 
             case 3:{
                 if(customer.getMyBookList().isEmpty()){
-                    System.out.println("your book list is empty");
+                    inputOutputManager.writeOutput("your book list is empty");
                     displayMenu(bibliotecaApp, customer);
                     break;
                 }
-                System.out.println("Enter Book Id");
-                String bookId = read.readLine();
+                inputOutputManager.writeOutput("Enter Book Id");
+                String bookId = inputOutputManager.getInput();
                 Book returnedBook = customer.returnBook(bookId);
                 if(returnedBook!=null){
                     bibliotecaApp.returnBook(returnedBook);
@@ -80,7 +85,7 @@ public class BibliotecaApp {
                     break;
                 }
                 else {
-                    System.out.println("you don't have this book");
+                    inputOutputManager.writeOutput("you don't have this book");
                 break;
                 }
             }
@@ -89,7 +94,7 @@ public class BibliotecaApp {
                 try {
                     customer.displayMyBookList();
                 }catch (customerBookListEmptyException e){
-                    System.out.println("your book list is empty");
+                    inputOutputManager.writeOutput("your book list is empty");
                     displayMenu(bibliotecaApp, customer);
                 }
                 break;
@@ -98,7 +103,7 @@ public class BibliotecaApp {
                 System.exit(0);
             }
             default: {
-                System.out.println("Oops! invalid choice,please Renter");
+                inputOutputManager.writeOutput("Oops! invalid choice,please Renter");
                 break;
             }
         }
