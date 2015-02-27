@@ -52,7 +52,7 @@ public class BibliotecaApp {
             }
             case 2: {
                 System.out.println("Enter Book Id");
-                int bookId = Integer.parseInt(read.readLine());
+                String bookId = read.readLine();
                 Book checkedBook = bibliotecaApp.checkout(bookId);
                 if(checkedBook!=null){
                 customer.borrowBook(checkedBook);
@@ -72,7 +72,7 @@ public class BibliotecaApp {
                     break;
                 }
                 System.out.println("Enter Book Id");
-                int bookId = Integer.parseInt(read.readLine());
+                String bookId = read.readLine();
                 Book returnedBook = customer.returnBook(bookId);
                 if(returnedBook!=null){
                     bibliotecaApp.returnBook(returnedBook);

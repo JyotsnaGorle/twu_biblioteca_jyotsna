@@ -21,15 +21,9 @@ public class BibliotecaLibrary {
         }
     }
 
-    public Book checkout(int bookId){
+    public Book checkout(String bookId){
         Book book_available = is_book_available(bookId);
         if (book_available != null) {
-//        for(Book each_book : booksInLibrary) {
-//                if(each_book.getBookId()==bookId){
-//            booksInLibrary.remove(each_book);
-//                    return each_book;
-//                }
-//            }
             booksInLibrary.remove(book_available);
             return book_available;
         } else
@@ -37,18 +31,13 @@ public class BibliotecaLibrary {
     }
 
 
-    public Book is_book_available(int bookId) {
-//        for (Book each : booksInLibrary) {
-//            if (each.getBookId()==bookId) {
-//                return each;
-//            }
-//        }
-//            return null;
-        for (int i = 0; i < booksInLibrary.size(); i++) {
-            if (booksInLibrary.get(i).getBookId() == bookId)
-                return booksInLibrary.get(i);
+    public Book is_book_available(String bookId) {
+        for (Book each : booksInLibrary) {
+            if (each.getBookId().equals(bookId)) {
+                return each;
+            }
         }
-        return null;
+            return null;
     }
 
 

@@ -12,7 +12,7 @@ public class CustomerTest{
     public void is_customer_checkout_successful(){
         BibliotecaLibrary biblioteca = new BibliotecaLibrary();
         Customer customer = new Customer();
-        Book book = biblioteca.checkout(1);
+        Book book = biblioteca.checkout("1");
         Assert.assertThat(customer.borrowBook(book), hasItem(book));
     }
 
@@ -25,10 +25,10 @@ public class CustomerTest{
     @Test
     public void is_return_successful(){
         BibliotecaLibrary biblioteca = new BibliotecaLibrary();
-        Book book = biblioteca.checkout(1);
+        Book book = biblioteca.checkout("1");
         Customer customer= new Customer();
         customer.borrowBook(book);
-        Book returnedBook = customer.returnBook(1);
+        Book returnedBook = customer.returnBook("1");
         Assert.assertThat(customer.getMyBookList(), not(hasItem(returnedBook)));
     }
 

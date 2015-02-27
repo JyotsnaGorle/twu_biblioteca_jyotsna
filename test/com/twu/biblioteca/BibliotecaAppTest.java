@@ -10,7 +10,7 @@ public class BibliotecaAppTest {
 @Test
     public void given_BookId_is_Invalid(){
     BibliotecaLibrary biblioteca = new BibliotecaLibrary();
-    Assert.assertNull(biblioteca.is_book_available(7));
+    Assert.assertNull(biblioteca.is_book_available("7"));
 }
 
 }
