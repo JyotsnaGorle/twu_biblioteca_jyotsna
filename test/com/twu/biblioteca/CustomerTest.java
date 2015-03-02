@@ -10,13 +10,13 @@ public class CustomerTest{
 
     @Test
     public void isCustomerCheckoutSuccessful(){
-        BibliotecaLibrary library = new BibliotecaLibrary();
+        BookLibrary library = new BookLibrary();
         Customer customer = new Customer();
-        Book book = library.checkout("1");
+        Book book = library.checkout("1", customer);
         Assert.assertThat(customer.borrowBook(book), hasItem(book));
     }
 
-    @Test(expected = customerBookListEmptyException.class)
+    @Test(expected = InvalidBookException.class)
     public void isCustomerBookListEmptyOrNot(){
         Customer customer= new Customer();
         customer.displayMyBookList();
@@ -24,10 +24,9 @@ public class CustomerTest{
 
     @Test
     public void isReturnSuccessful(){
-        BibliotecaLibrary library = new BibliotecaLibrary();
-        Book book = library.checkout("1");
+        BookLibrary library = new BookLibrary();
         Customer customer= new Customer();
-        customer.borrowBook(book);
+        library.checkout("1", customer);
         Book returnedBook = customer.returnBook("1");
         Assert.assertThat(customer.getMyBookList(), not(hasItem(returnedBook)));
     }

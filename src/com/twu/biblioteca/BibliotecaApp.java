@@ -1,8 +1,6 @@
 package com.twu.biblioteca;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * Created by jyotsna on 25/02/15.
@@ -11,23 +9,29 @@ import java.io.InputStreamReader;
 public class BibliotecaApp {
 
     private InputOutputManager inputOutputManager;
+    private BookLibrary library;
 
     public BibliotecaApp(InputOutputManager inputOutputManager) {
         this.inputOutputManager = inputOutputManager;
     }
 
+    public BibliotecaApp(BookLibrary library, InputOutputManager inputOutputManager) {
+        this(inputOutputManager);
+        this.library = library;
+    }
+
     public static void main(String[] args) throws IOException {
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(new ConsoleIODevice());
+        BookLibrary library = new BookLibrary();
+        BibliotecaApp bibliotecaApp = new BibliotecaApp(library,new ConsoleIODevice());
         bibliotecaApp.startApp();
-        BibliotecaLibrary library = new BibliotecaLibrary();
         Customer customer = new Customer();
-        bibliotecaApp.displayMenu(library, customer);
+        bibliotecaApp.displayMenu(customer);
     }
 
     public void startApp(){
         inputOutputManager.writeOutput("-------WELCOME TO BIBLIOTECA--------");
     }
-    private void displayMenu(BibliotecaLibrary bibliotecaApp, Customer customer) throws IOException {
+    private void displayMenu(Customer customer) throws IOException {
         int choice;
 
         do {
@@ -37,65 +41,41 @@ public class BibliotecaApp {
                     "\n 3. Return book" +
                     "\n 4. View My Book List" +
                     "\n 0. Exit");
-            choice = customer.getChoice();
+            choice = Integer.parseInt(inputOutputManager.getInput());
 
-                selectOption(bibliotecaApp,customer, choice);
+                selectOption(customer, choice);
             }while (choice!=0);
 
 
     }
 
-    public void selectOption(BibliotecaLibrary bibliotecaApp, Customer customer, int choice) throws IOException {
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+    public void selectOption(Customer customer, int choice) throws IOException {
 
         switch (choice) {
             case 1: {
-               inputOutputManager.writeOutput("Book ID   Book Title    Author Name   Year Published");
-                bibliotecaApp.viewLibraryBookList();
-                displayMenu(bibliotecaApp, customer);
+                inputOutputManager.writeOutput("Book ID   Book Title    Author Name   Year Published");
+                library.viewLibraryBookList();
+                displayMenu(customer);
                 break;
             }
             case 2: {
-                inputOutputManager.writeOutput("\tEnter Book Id");
-                String bookId = inputOutputManager.getInput();
-                Book checkedBook = bibliotecaApp.checkout(bookId);
-                if(checkedBook!=null){
-                customer.borrowBook(checkedBook);
-                displayMenu(bibliotecaApp, customer);
+                checkOutBook(customer);
+                displayMenu(customer);
                 break;
-                }
-                else {
-                    inputOutputManager.writeOutput("------This is an Invalid book------");
-                    break;
-                }
             }
 
             case 3:{
-                if(customer.getMyBookList().isEmpty()){
-                    inputOutputManager.writeOutput("---------your book list is empty---------");
-                    displayMenu(bibliotecaApp, customer);
-                    break;
-                }
-                inputOutputManager.writeOutput("\tEnter Book Id");
-                String bookId = inputOutputManager.getInput();
-                Book returnedBook = customer.returnBook(bookId);
-                if(returnedBook!=null){
-                    bibliotecaApp.returnBook(returnedBook);
-                    displayMenu(bibliotecaApp,customer);
-                    break;
-                }
-                else {
-                    inputOutputManager.writeOutput("YOU DON'T HAVE THIS BOOK");
+                returnBook(customer);
+                displayMenu(customer);
                 break;
-                }
             }
 
             case 4:{
                 try {
                     customer.displayMyBookList();
-                }catch (customerBookListEmptyException e){
+                }catch (InvalidBookException e){
                     inputOutputManager.writeOutput("-------your book list is empty---------");
-                    displayMenu(bibliotecaApp, customer);
+                    displayMenu(customer);
                 }
                 break;
             }
@@ -109,6 +89,39 @@ public class BibliotecaApp {
         }
     }
 
+
+
+    void checkOutBook(Customer customer) throws IOException {
+        inputOutputManager.writeOutput("Enter Book Id");
+        String bookId = inputOutputManager.getInput();
+        Book checkedBook = library.checkout(bookId,customer);
+        if(checkedBook!=null){
+            inputOutputManager.writeOutput("SUCCESSFUL CHECKOUT! ENJOY THE BOOK " + checkedBook.getTitle());
+            return;
+        }
+        else {
+            inputOutputManager.writeOutput("------This is an Invalid book------");
+            return;
+        }
+    }
+
+    void returnBook(Customer customer) throws IOException {
+        if(customer.getMyBookList().isEmpty()){
+            inputOutputManager.writeOutput("---------your book list is empty---------");
+            return;
+        }
+        inputOutputManager.writeOutput("Enter Book Id");
+        String bookId = inputOutputManager.getInput();
+        Book returnedBook = library.returnBook(bookId,customer);
+        if(returnedBook!=null){
+            inputOutputManager.writeOutput("THANK YOU FOR RETURNING THE BOOK " + returnedBook.getTitle() + "\n");
+            return;
+        }
+        else {
+            inputOutputManager.writeOutput("YOU DON'T HAVE THIS BOOK");
+            return;
+        }
+    }
 
 
 }

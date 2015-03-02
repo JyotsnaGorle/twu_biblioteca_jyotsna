@@ -3,8 +3,8 @@ package com.twu.biblioteca;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BibliotecaLibrary {
-    BibliotecaLibrary() {
+public class BookLibrary {
+    BookLibrary() {
         BookList books = new BookList();
         booksInLibrary = books.listOfBooks;
     }
@@ -20,9 +20,10 @@ public class BibliotecaLibrary {
         }
     }
 
-    public Book checkout(String bookId){
-        Book book_available = isBookAvailable(bookId);
+    public Book checkout(String bookId, Customer customer){
+        Book book_available = find(bookId);
         if (book_available != null) {
+            customer.borrowBook(book_available);
             booksInLibrary.remove(book_available);
             return book_available;
         } else
@@ -30,7 +31,7 @@ public class BibliotecaLibrary {
     }
 
 
-    public Book isBookAvailable(String bookId) {
+    public Book find(String bookId) {
         for (Book each : booksInLibrary) {
             if (each.getBookId().equals(bookId)) {
                 return each;
@@ -39,9 +40,10 @@ public class BibliotecaLibrary {
             return null;
     }
 
-
-    public void returnBook(Book bookToBeReturned) {
+    public Book returnBook(String bookId, Customer customer) throws InvalidBookException {
+        Book bookToBeReturned = customer.returnBook(bookId);
         booksInLibrary.add(bookToBeReturned);
+        return bookToBeReturned;
     }
 }
 
