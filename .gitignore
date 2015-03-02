@@ -1,7 +1,5 @@
-.idea
 .DS_Store
 .gradle
 build/
-gradle/
 gradlew
 gradlew.bata
