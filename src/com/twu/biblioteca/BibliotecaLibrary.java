@@ -42,7 +42,6 @@ public class BibliotecaLibrary {
 
     public void returnBook(Book bookToBeReturned) {
         booksInLibrary.add(bookToBeReturned);
-        viewLibraryBookList();
     }
 }
 
