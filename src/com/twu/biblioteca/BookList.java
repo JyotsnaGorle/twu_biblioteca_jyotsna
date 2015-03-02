@@ -17,10 +17,10 @@ public class BookList {
 
      List<Book> listOfBooks = new ArrayList<Book>() {
         {
-            add(Book.createBook("1", "book1", "author1", "2012"));
-            add(Book.createBook("2", "book2", "author2", "2012"));
-            add(Book.createBook("3", "book3", "author3", "2012"));
-            add(Book.createBook("4", "book4", "author4", "2012"));
+            add(Book.createBook("1", "KentBeck_TDD_byexample", "KentBeck", "2012"));
+            add(Book.createBook("2", "The Kite Runner", "Khaleid Hoseni", "2003"));
+            add(Book.createBook("3", "Harry Potter", "J.K.Rowling", "2000"));
+            add(Book.createBook("4", "The Alchemist", "Paulo Cohelo", "1988"));
         }
     };
 }
