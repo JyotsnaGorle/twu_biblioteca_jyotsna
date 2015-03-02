@@ -30,6 +30,13 @@ public class CustomerTest{
         Book returnedBook = customer.returnBook("1");
         Assert.assertThat(customer.getMyBookList(), not(hasItem(returnedBook)));
     }
+    @Test
+    public void isMovieBorrowedSuccessfuly(){
+        Customer customer = new Customer();
+        MovieLibrary movieLibrary = new MovieLibrary();
+        Movie borrowedMovie = movieLibrary.checkout(customer,"1");
+        Assert.assertThat(customer.borrowMovie(borrowedMovie),hasItem(borrowedMovie));
+    }
 
 
 }

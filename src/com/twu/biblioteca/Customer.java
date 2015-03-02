@@ -1,7 +1,5 @@
 package com.twu.biblioteca;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +9,17 @@ import java.util.List;
 
 public class Customer{
 
-    BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+    private List<Book> myBookList = new ArrayList<Book>();
+
+    public List<Movie> getMyMovieList() {
+        return myMovieList;
+    }
+
+    private List<Movie> myMovieList = new ArrayList<Movie>();
 
     public List<Book> getMyBookList() {
         return myBookList;
     }
-
-    private List<Book> myBookList = new ArrayList<Book>();
 
     public List<Book> borrowBook(Book borrowedBook) {
         myBookList.add(borrowedBook);
@@ -54,4 +56,8 @@ public class Customer{
         return bookToBeReturned;
     }
 
+    public List<Movie> borrowMovie(Movie movie) {
+        myMovieList.add(movie);
+        return myMovieList;
+    }
 }

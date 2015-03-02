@@ -9,15 +9,15 @@ import java.io.IOException;
 public class BibliotecaApp {
 
     private InputOutputManager inputOutputManager;
-    private BookLibrary library;
+    private BookLibrary bookLibrary;
 
     public BibliotecaApp(InputOutputManager inputOutputManager) {
         this.inputOutputManager = inputOutputManager;
     }
 
-    public BibliotecaApp(BookLibrary library, InputOutputManager inputOutputManager) {
+    public BibliotecaApp(BookLibrary bookLibrary, InputOutputManager inputOutputManager) {
         this(inputOutputManager);
-        this.library = library;
+        this.bookLibrary = bookLibrary;
     }
 
     public static void main(String[] args) throws IOException {
@@ -54,7 +54,7 @@ public class BibliotecaApp {
         switch (choice) {
             case 1: {
                 inputOutputManager.writeOutput("Book ID   Book Title    Author Name   Year Published");
-                library.viewLibraryBookList();
+                bookLibrary.viewLibraryBookList();
                 displayMenu(customer);
                 break;
             }
@@ -94,7 +94,7 @@ public class BibliotecaApp {
     void checkOutBook(Customer customer) throws IOException {
         inputOutputManager.writeOutput("Enter Book Id");
         String bookId = inputOutputManager.getInput();
-        Book checkedBook = library.checkout(bookId,customer);
+        Book checkedBook = bookLibrary.checkout(bookId,customer);
         if(checkedBook!=null){
             inputOutputManager.writeOutput("SUCCESSFUL CHECKOUT! ENJOY THE BOOK " + checkedBook.getTitle());
             return;
@@ -112,7 +112,7 @@ public class BibliotecaApp {
         }
         inputOutputManager.writeOutput("Enter Book Id");
         String bookId = inputOutputManager.getInput();
-        Book returnedBook = library.returnBook(bookId,customer);
+        Book returnedBook = bookLibrary.returnBook(bookId,customer);
         if(returnedBook!=null){
             inputOutputManager.writeOutput("THANK YOU FOR RETURNING THE BOOK " + returnedBook.getTitle() + "\n");
             return;
