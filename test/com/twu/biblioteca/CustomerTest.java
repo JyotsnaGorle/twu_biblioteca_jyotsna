@@ -12,21 +12,21 @@ public class CustomerTest{
     public void isCustomerCheckoutSuccessful(){
         BookLibrary library = new BookLibrary();
         Customer customer = new Customer();
-        Book book = library.checkout("1", customer);
+        Book book = (Book)library.checkout(customer,"1");
         Assert.assertThat(customer.borrowBook(book), hasItem(book));
     }
 
-    @Test(expected = InvalidBookException.class)
+    @Test(expected = InvalidItemException.class)
     public void isCustomerBookListEmptyOrNot(){
         Customer customer= new Customer();
-        customer.displayMyBookList();
+        customer.displayMyItemList("b");
     }
 
     @Test
     public void isReturnSuccessful(){
         BookLibrary library = new BookLibrary();
         Customer customer= new Customer();
-        library.checkout("1", customer);
+        library.checkout(customer,"1");
         Book returnedBook = customer.returnBook("1");
         Assert.assertThat(customer.getMyBookList(), not(hasItem(returnedBook)));
     }
@@ -34,7 +34,7 @@ public class CustomerTest{
     public void isMovieBorrowedSuccessfuly(){
         Customer customer = new Customer();
         MovieLibrary movieLibrary = new MovieLibrary();
-        Movie borrowedMovie = movieLibrary.checkout(customer,"1");
+        Movie borrowedMovie = (Movie) movieLibrary.checkout(customer,"1");
         Assert.assertThat(customer.borrowMovie(borrowedMovie),hasItem(borrowedMovie));
     }
 

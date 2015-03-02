@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by jyotsna on 25/02/15.
@@ -9,20 +11,36 @@ import java.io.IOException;
 public class BibliotecaApp {
 
     private InputOutputManager inputOutputManager;
-    private BookLibrary bookLibrary;
+    private ILibrary iLibrary;
+    String itemType;
 
     public BibliotecaApp(InputOutputManager inputOutputManager) {
         this.inputOutputManager = inputOutputManager;
     }
 
-    public BibliotecaApp(BookLibrary bookLibrary, InputOutputManager inputOutputManager) {
+    public BibliotecaApp(ILibrary iLibrary, InputOutputManager inputOutputManager,String itemType) {
         this(inputOutputManager);
-        this.bookLibrary = bookLibrary;
+        this.iLibrary = iLibrary;
+        this.itemType = itemType;
     }
 
     public static void main(String[] args) throws IOException {
-        BookLibrary library = new BookLibrary();
-        BibliotecaApp bibliotecaApp = new BibliotecaApp(library,new ConsoleIODevice());
+        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+        BookLibrary bookLibrary = new BookLibrary();
+        MovieLibrary movieLibrary = new MovieLibrary();
+        System.out.println("-------WELCOME TO BIBLIOTECA--------");
+        System.out.println("What do you want to browse");
+        System.out.println("b for Books and m for Movies");
+        String itemType = read.readLine();
+        BibliotecaApp bibliotecaApp;
+        if(itemType.equals("b")){
+            bibliotecaApp = new BibliotecaApp(bookLibrary,new ConsoleIODevice(),itemType);
+
+        }
+        else {
+            bibliotecaApp = new BibliotecaApp(movieLibrary,new ConsoleIODevice(),itemType);
+
+        }
         bibliotecaApp.startApp();
         Customer customer = new Customer();
         bibliotecaApp.displayMenu(customer);
@@ -53,13 +71,13 @@ public class BibliotecaApp {
 
         switch (choice) {
             case 1: {
-                inputOutputManager.writeOutput("Book ID   Book Title    Author Name   Year Published");
-                bookLibrary.viewLibraryBookList();
+                inputOutputManager.writeOutput("Item ID    Title    Author/Director Name   Year");
+                iLibrary.display();
                 displayMenu(customer);
                 break;
             }
             case 2: {
-                checkOutBook(customer);
+                checkOutItem(customer);
                 displayMenu(customer);
                 break;
             }
@@ -72,9 +90,9 @@ public class BibliotecaApp {
 
             case 4:{
                 try {
-                    customer.displayMyBookList();
-                }catch (InvalidBookException e){
-                    inputOutputManager.writeOutput("-------your book list is empty---------");
+                    customer.displayMyItemList(itemType);
+                }catch (InvalidItemException e){
+                    inputOutputManager.writeOutput("-------your list is empty---------");
                     displayMenu(customer);
                 }
                 break;
@@ -91,16 +109,16 @@ public class BibliotecaApp {
 
 
 
-    void checkOutBook(Customer customer) throws IOException {
+    void checkOutItem(Customer customer) throws IOException {
         inputOutputManager.writeOutput("Enter Book Id");
-        String bookId = inputOutputManager.getInput();
-        Book checkedBook = bookLibrary.checkout(bookId,customer);
-        if(checkedBook!=null){
-            inputOutputManager.writeOutput("SUCCESSFUL CHECKOUT! ENJOY THE BOOK " + checkedBook.getTitle());
+        String itemId = inputOutputManager.getInput();
+        Object checkedItem = iLibrary.checkout(customer,itemId);
+        if(checkedItem!=null){
+            inputOutputManager.writeOutput("SUCCESSFUL CHECKOUT! ENJOY THE ITEM");
             return;
         }
         else {
-            inputOutputManager.writeOutput("------This is an Invalid book------");
+            inputOutputManager.writeOutput("------This is an Invalid Item------");
             return;
         }
     }
@@ -112,7 +130,7 @@ public class BibliotecaApp {
         }
         inputOutputManager.writeOutput("Enter Book Id");
         String bookId = inputOutputManager.getInput();
-        Book returnedBook = bookLibrary.returnBook(bookId,customer);
+        Book returnedBook = (Book)iLibrary.returnItem(customer,bookId);
         if(returnedBook!=null){
             inputOutputManager.writeOutput("THANK YOU FOR RETURNING THE BOOK " + returnedBook.getTitle() + "\n");
             return;
@@ -122,6 +140,5 @@ public class BibliotecaApp {
             return;
         }
     }
-
 
 }

@@ -19,13 +19,13 @@ public class MovieLibraryTest {
 
     @Test
     public void isMovieAvailable(){
-        Assert.assertNotNull(movieLibrary.isMovieAvailable("1"));
+        Assert.assertNotNull(movieLibrary.find("1"));
     }
 
     @Test
     public void isMovieCheckoutSuccessful(){
         Customer customer = new Customer();
-    Movie movie = movieLibrary.checkout(customer, "1");
+    Movie movie = (Movie)movieLibrary.checkout(customer, "1");
         Assert.assertThat(movieLibrary.getListOfMovies(),hasItem(movie));
     }
 

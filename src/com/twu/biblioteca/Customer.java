@@ -26,12 +26,28 @@ public class Customer{
         return myBookList;
     }
 
-    public void displayMyBookList() {
+    public void displayMyItemList(String itemType) {
+        if(itemType.equals("b"))
+        displayMyBookList();
+        else
+            displayMyMovieList();
+    }
+
+    private void displayMyBookList() {
         if (myBookList.isEmpty()) {
-            throw new InvalidBookException("Book List is Empty");
+            throw new InvalidItemException("Book List is Empty");
         } else {
             for (Book eachBook : myBookList) {
                 System.out.println(eachBook.getBookId() + " \t\t   " + eachBook.getTitle() + " \t\t    " + eachBook.getAuthor() + " \t \t   " + eachBook.getYearOfPublishing());
+            }
+        }
+    }
+    private void displayMyMovieList() {
+        if (myMovieList.isEmpty()) {
+            throw new InvalidItemException("Book List is Empty");
+        } else {
+            for (Movie each : myMovieList) {
+                System.out.println(each.getMovieId()+" "+each.getTitle()+" "+each.getDirector()+" "+each.getYear()+" "+each.getRating());
             }
         }
     }
@@ -46,7 +62,7 @@ public class Customer{
 
     public Book returnBook(String bookId) {
         if (myBookList.isEmpty()) {
-            throw new InvalidBookException("Customer doesn't have the book");
+            throw new InvalidItemException("Customer doesn't have the book");
         }
         Book bookToBeReturned = isBookWithMe(bookId);
         if (bookToBeReturned != null) {

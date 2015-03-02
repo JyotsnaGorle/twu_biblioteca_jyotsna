@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by jyotsna on 02/03/15.
  */
-public class MovieLibrary {
+public class MovieLibrary implements ILibrary {
 
     List<Movie> listOfMovies = new ArrayList<Movie>();
 
@@ -21,7 +21,9 @@ public class MovieLibrary {
     }
 
 
-    public Movie isMovieAvailable(String movieId) {
+
+    @Override
+    public Object find(String movieId) {
         for(Movie each:listOfMovies){
             if(each.getMovieId().equals(movieId))
                 return each;
@@ -29,8 +31,17 @@ public class MovieLibrary {
         return null;
     }
 
-    public Movie checkout(Customer customer, String movieId) {
-        Movie movie = isMovieAvailable(movieId);
+    @Override
+    public void display() {
+        for(Movie each:listOfMovies){
+            System.out.println(each.getMovieId()+" "+each.getTitle()+" "+each.getDirector()+" "+each.getYear()+" "+each.getRating());
+        }
+
+        }
+
+    @Override
+    public Object checkout(Customer customer,String movieId) {
+        Movie movie = (Movie)find(movieId);
         if(movie !=null){
             listOfMovies.add(movie);
             customer.borrowMovie(movie);
@@ -38,4 +49,11 @@ public class MovieLibrary {
         }
         return null;
     }
+
+    @Override
+    public Object returnItem(Customer customer, String bookId) {
+        return null;
+    }
+
+
 }

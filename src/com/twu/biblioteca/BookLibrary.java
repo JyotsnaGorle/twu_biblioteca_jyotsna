@@ -3,7 +3,7 @@ package com.twu.biblioteca;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookLibrary {
+public class BookLibrary implements ILibrary {
     BookLibrary() {
         BookList books = new BookList();
         booksInLibrary = books.listOfBooks;
@@ -11,17 +11,34 @@ public class BookLibrary {
 
      List<Book> booksInLibrary = new ArrayList<Book>();
 
+    public Book returnBook(String bookId, Customer customer) throws InvalidItemException {
+        Book bookToBeReturned = customer.returnBook(bookId);
+        booksInLibrary.add(bookToBeReturned);
+        return bookToBeReturned;
+    }
 
-    public void viewLibraryBookList() {
-                for(Book each : booksInLibrary) {
+    @Override
+    public Object find(String bookId) {
+        for (Book each : booksInLibrary) {
+            if (each.getBookId().equals(bookId)) {
+                return each;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void display() {
+        for(Book each : booksInLibrary) {
             System.out.println("----------------------------------------------------");
             System.out.println(each.getBookId() + " \t\t   " + each.getTitle() + " \t\t    " + each.getAuthor() + " \t \t   " + each.getYearOfPublishing());
             System.out.println("----------------------------------------------------");
         }
     }
 
-    public Book checkout(String bookId, Customer customer){
-        Book book_available = find(bookId);
+    @Override
+    public Object checkout(Customer customer,String bookId) {
+        Book book_available = (Book) find(bookId);
         if (book_available != null) {
             customer.borrowBook(book_available);
             booksInLibrary.remove(book_available);
@@ -30,17 +47,8 @@ public class BookLibrary {
             return null;
     }
 
-
-    public Book find(String bookId) {
-        for (Book each : booksInLibrary) {
-            if (each.getBookId().equals(bookId)) {
-                return each;
-            }
-        }
-            return null;
-    }
-
-    public Book returnBook(String bookId, Customer customer) throws InvalidBookException {
+    @Override
+    public Book returnItem(Customer customer, String bookId)throws InvalidItemException {
         Book bookToBeReturned = customer.returnBook(bookId);
         booksInLibrary.add(bookToBeReturned);
         return bookToBeReturned;
