@@ -1,8 +1,6 @@
 package com.twu.biblioteca;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * Created by jyotsna on 25/02/15.
@@ -14,33 +12,16 @@ public class BibliotecaApp {
     private ILibrary iLibrary;
     String itemType;
 
-    public BibliotecaApp(InputOutputManager inputOutputManager) {
-        this.inputOutputManager = inputOutputManager;
-    }
 
-    public BibliotecaApp(ILibrary iLibrary, InputOutputManager inputOutputManager,String itemType) {
-        this(inputOutputManager);
-        this.iLibrary = iLibrary;
-        this.itemType = itemType;
+
+    public BibliotecaApp(InputOutputManager inputOutputManager) {
+    this.inputOutputManager = inputOutputManager;
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
         BookLibrary bookLibrary = new BookLibrary();
         MovieLibrary movieLibrary = new MovieLibrary();
-        System.out.println("-------WELCOME TO BIBLIOTECA--------");
-        System.out.println("What do you want to browse");
-        System.out.println("b for Books and m for Movies");
-        String itemType = read.readLine();
-        BibliotecaApp bibliotecaApp;
-        if(itemType.equals("b")){
-            bibliotecaApp = new BibliotecaApp(bookLibrary,new ConsoleIODevice(),itemType);
-
-        }
-        else {
-            bibliotecaApp = new BibliotecaApp(movieLibrary,new ConsoleIODevice(),itemType);
-
-        }
+        BibliotecaApp bibliotecaApp = new BibliotecaApp( new ConsoleIODevice());
         bibliotecaApp.startApp();
         Customer customer = new Customer();
         bibliotecaApp.displayMenu(customer);
@@ -58,9 +39,14 @@ public class BibliotecaApp {
                     "\n 2. Checkout" +
                     "\n 3. Return book" +
                     "\n 4. View My Book List" +
+                    "\n 5. View Library Movie List" +
+                    "\n 6. Checkout Movie" +
+                    "\n 7. View My Movie List" +
                     "\n 0. Exit");
             choice = Integer.parseInt(inputOutputManager.getInput());
-
+                if(choice<=4)
+                    iLibrary = new BookLibrary();
+            else iLibrary = new MovieLibrary();
                 selectOption(customer, choice);
             }while (choice!=0);
 
@@ -97,6 +83,12 @@ public class BibliotecaApp {
                 }
                 break;
             }
+
+            case 5:{
+                inputOutputManager.writeOutput("Item ID    Title    Author/Director Name   Year");
+                iLibrary.display();
+                displayMenu(customer);
+            }
             case 0: {
                 System.exit(0);
             }
@@ -124,6 +116,10 @@ public class BibliotecaApp {
     }
 
     void returnBook(Customer customer) throws IOException {
+        if(itemType.equals("m")){
+            inputOutputManager.writeOutput("this functionality is not yet available");
+            return;
+        }
         if(customer.getMyBookList().isEmpty()){
             inputOutputManager.writeOutput("---------your book list is empty---------");
             return;
@@ -140,5 +136,6 @@ public class BibliotecaApp {
             return;
         }
     }
+
 
 }

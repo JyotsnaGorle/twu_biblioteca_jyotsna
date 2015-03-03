@@ -15,7 +15,7 @@ public class BookLibraryTest {
         BookLibrary library = new BookLibrary();
         Book book = (Book)library.find("1");
         Customer customer = new Customer();
-        Assert.assertEquals((Book)library.checkout(customer,"1"),book);
+        Assert.assertEquals(library.checkout(customer,"1"),book);
     }
 
 

@@ -20,7 +20,7 @@ public class BibliotecaAppTest {
     @Before
     public void setUp() {
         testIO = new IOforTest();
-        bibliotecaApp = new BibliotecaApp(new MovieLibrary(), testIO,"b");
+        bibliotecaApp = new BibliotecaApp(testIO);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class BibliotecaAppTest {
     @Test
     public void testIfBookReturnIsSuccessful() throws IOException {
         BookLibrary bookLibraryMock = mock(BookLibrary.class);
-        bibliotecaApp = new BibliotecaApp(new BookLibrary(), testIO,"b");
+        bibliotecaApp = new BibliotecaApp(testIO);
 
         String bookId = "1";
         Book bookBorrowed = new Book(bookId, "KentBeck_TDD_byexample", "KentBeck", "2012");
@@ -87,6 +87,8 @@ public class BibliotecaAppTest {
         String expected = "Enter Book IdTHANK YOU FOR RETURNING THE BOOK KentBeck_TDD_byexample\n";
         Assert.assertEquals(expected,testIO.consoleOutput());
     }
+
+
 
 }
 
