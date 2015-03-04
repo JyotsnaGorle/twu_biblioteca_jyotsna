@@ -14,10 +14,10 @@ public class MovieList {
     }
     List<Movie> moviesList = new ArrayList<Movie>(){
         {
-            add(new Movie("1","movie1","director1","4/5"));
-            add(new Movie("2","movie2","director2","2/5"));
-            add(new Movie("3","movie3","director3","3/5"));
-            add(new Movie("4","movie4","director4","1/5"));
+            add(new Movie("1","movie1","director1","4/5","2011"));
+            add(new Movie("2","movie2","director2","2/5","2003"));
+            add(new Movie("3","movie3","director3","3/5","2001"));
+            add(new Movie("4","movie4","director4","1/5","2000"));
         }
     };
 }

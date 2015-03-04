@@ -24,8 +24,8 @@ public class MovieLibraryTest {
 
     @Test
     public void isMovieCheckoutSuccessful(){
-        Customer customer = new Customer();
-    Movie movie = (Movie)movieLibrary.checkout(customer, "1");
+        LibraryMember libraryMember = new LibraryMember();
+    Movie movie = (Movie)movieLibrary.checkout(libraryMember, "1");
         Assert.assertThat(movieLibrary.getListOfMovies(),hasItem(movie));
     }
 

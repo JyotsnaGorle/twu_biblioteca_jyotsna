@@ -5,13 +5,13 @@ package com.twu.biblioteca;
  */
 public class Movie {
 
-    String movieId;
-    String title;
-    String year;
-    String director;
-    String rating;
+    private String movieId;
+    private String title;
+    private String year;
+    private String director;
+    private String rating;
 
-    public Movie(String movieId, String title, String director, String rating) {
+    public Movie(String movieId, String title, String director, String rating,String year) {
         this.movieId=movieId;
         this.title=title;
         this.year=year;

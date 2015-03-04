@@ -40,18 +40,18 @@ public class MovieLibrary implements ILibrary {
         }
 
     @Override
-    public Object checkout(Customer customer,String movieId) {
+    public Object checkout(LibraryMember libraryMember,String movieId) {
         Movie movie = (Movie)find(movieId);
         if(movie !=null){
-            listOfMovies.add(movie);
-            customer.borrowMovie(movie);
+            listOfMovies.remove(movie);
+            libraryMember.borrowMovie(movie);
             return movie;
         }
         return null;
     }
 
     @Override
-    public Object returnItem(Customer customer, String bookId) {
+    public Object returnItem(LibraryMember libraryMember, String bookId) {
         return null;
     }
 

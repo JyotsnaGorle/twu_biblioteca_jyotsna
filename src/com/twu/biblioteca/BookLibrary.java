@@ -11,12 +11,6 @@ public class BookLibrary implements ILibrary {
 
      List<Book> booksInLibrary = new ArrayList<Book>();
 
-    public Book returnBook(String bookId, Customer customer) throws InvalidItemException {
-        Book bookToBeReturned = customer.returnBook(bookId);
-        booksInLibrary.add(bookToBeReturned);
-        return bookToBeReturned;
-    }
-
     @Override
     public Object find(String bookId) {
         for (Book each : booksInLibrary) {
@@ -37,10 +31,10 @@ public class BookLibrary implements ILibrary {
     }
 
     @Override
-    public Object checkout(Customer customer,String bookId) {
+    public Object checkout(LibraryMember libraryMember,String bookId) {
         Book book_available = (Book) find(bookId);
         if (book_available != null) {
-            customer.borrowBook(book_available);
+            libraryMember.borrowBook(book_available);
             booksInLibrary.remove(book_available);
             return book_available;
         } else
@@ -48,8 +42,8 @@ public class BookLibrary implements ILibrary {
     }
 
     @Override
-    public Book returnItem(Customer customer, String bookId)throws InvalidItemException {
-        Book bookToBeReturned = customer.returnBook(bookId);
+    public Book returnItem(LibraryMember libraryMember, String bookId)throws InvalidItemException {
+        Book bookToBeReturned = libraryMember.returnBook(bookId);
         booksInLibrary.add(bookToBeReturned);
         return bookToBeReturned;
     }

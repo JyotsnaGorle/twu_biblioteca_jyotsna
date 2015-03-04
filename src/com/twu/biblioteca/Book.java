@@ -6,10 +6,10 @@ package com.twu.biblioteca;
 public class Book {
 
 
-    String bookId;
-    String title;
-    String author;
-    String yearOfPublishing;
+    private String bookId;
+    private String title;
+    private String author;
+    private String yearOfPublishing;
 
     public String getBookId() {
         return bookId;

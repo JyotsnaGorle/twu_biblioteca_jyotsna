@@ -7,7 +7,7 @@ import java.util.List;
  * Created by jyotsna on 25/02/15.
  */
 
-public class Customer{
+public class LibraryMember {
 
     private List<Book> myBookList = new ArrayList<Book>();
 
@@ -26,8 +26,8 @@ public class Customer{
         return myBookList;
     }
 
-    public void displayMyItemList(String itemType) {
-        if(itemType.equals("b"))
+    public void displayMyItemList(ILibrary iLibrary) {
+        if(iLibrary instanceof BookLibrary)
         displayMyBookList();
         else
             displayMyMovieList();

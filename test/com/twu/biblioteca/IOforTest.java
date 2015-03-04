@@ -1,9 +1,8 @@
 package com.twu.biblioteca;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-
-import static java.util.Arrays.asList;
 
 /**
  * Created by jyotsna on 27/02/15.
@@ -23,12 +22,14 @@ public class IOforTest implements InputOutputManager{
     }
 
     public void withUserInputs(String... inputs) {
-        this.input = asList(inputs);
+        this.input = Arrays.asList(inputs);
         this.output="";
     }
 
     @Override
     public String getInput() throws IOException {
+        if(input.size()>1)
+         return input.get(i++);
         return input.get(i);
     }
 
