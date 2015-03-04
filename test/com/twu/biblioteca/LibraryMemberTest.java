@@ -35,7 +35,7 @@ public class LibraryMemberTest {
     public void isMovieBorrowedSuccessfuly(){
         LibraryMember libraryMember = new LibraryMember();
         MovieLibrary movieLibrary = new MovieLibrary();
-        Movie borrowedMovie = (Movie) movieLibrary.checkout(libraryMember,"1");
+        Movie borrowedMovie = movieLibrary.checkout(libraryMember,"1");
         Assert.assertThat(libraryMember.borrowMovie(borrowedMovie),hasItem(borrowedMovie));
     }
 

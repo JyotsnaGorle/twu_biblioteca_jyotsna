@@ -23,7 +23,7 @@ public class MovieLibrary implements ILibrary {
 
 
     @Override
-    public Object find(String movieId) {
+    public Movie find(String movieId) {
         for(Movie each:listOfMovies){
             if(each.getMovieId().equals(movieId))
                 return each;
@@ -40,8 +40,8 @@ public class MovieLibrary implements ILibrary {
         }
 
     @Override
-    public Object checkout(LibraryMember libraryMember,String movieId) {
-        Movie movie = (Movie)find(movieId);
+    public Movie checkout(LibraryMember libraryMember,String movieId) {
+        Movie movie = find(movieId);
         if(movie !=null){
             listOfMovies.remove(movie);
             libraryMember.borrowMovie(movie);
@@ -51,7 +51,7 @@ public class MovieLibrary implements ILibrary {
     }
 
     @Override
-    public Object returnItem(LibraryMember libraryMember, String bookId) {
+    public Movie returnItem(LibraryMember libraryMember, String bookId) {
         return null;
     }
 

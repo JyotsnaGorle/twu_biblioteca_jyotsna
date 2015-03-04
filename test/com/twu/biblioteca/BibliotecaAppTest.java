@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by jyotsna on 27/02/15.
@@ -23,15 +22,17 @@ public class BibliotecaAppTest {
         bibliotecaApp = new BibliotecaApp(testIO);
     }
 
-//    @Test
-//    public void openBibliotecaApp() throws IOException {
-//        testIO.withUserInputs("1","hello");
-//
-//        bibliotecaApp.startApp();
-//        String expected = "-------WELCOME TO BIBLIOTECA--------Enter your Library NumberEnter your password";
-//
-//        Assert.assertEquals(expected, testIO.consoleOutput());
-//    }
+    @Test
+    public void openBibliotecaApp() throws IOException {
+        testIO.setWithUserInputs("111-111", "hello");
+        BibliotecaApp bibliotecaAppSpy = spy(bibliotecaApp);
+        doNothing().when(bibliotecaAppSpy).displayMenu(any(LibraryMember.class));
+
+        bibliotecaAppSpy.startApp();
+        String expected = "-------WELCOME TO BIBLIOTECA--------Enter UserIdEnter password";
+
+        Assert.assertEquals(expected, testIO.consoleOutput());
+    }
 
     @Test
     public void isOptionAvailable() throws IOException {
@@ -52,8 +53,8 @@ public class BibliotecaAppTest {
     @Test
     public void checkOption2() throws IOException {
         LibraryMember libraryMember = new LibraryMember();
-        String input = "1";
-        testIO.withUserInputs(input);
+        String itemId = "1";
+        testIO.setWithUserInputs(itemId);
         bibliotecaApp.setiLibraryType(2);
         bibliotecaApp.checkOutItem(libraryMember);
         String expected = "Enter Book IdSUCCESSFUL CHECKOUT! ENJOY THE ITEM";
@@ -65,7 +66,7 @@ public class BibliotecaAppTest {
     public void checkOption3WhenCustomerListIsEmpty() throws IOException{
         LibraryMember libraryMember = new LibraryMember();
         String bookId="2";
-        testIO.withUserInputs(bookId);
+        testIO.setWithUserInputs(bookId);
         bibliotecaApp.setiLibraryType(3);
         bibliotecaApp.returnBook(libraryMember);
         String expected ="---------your book list is empty---------";
@@ -83,7 +84,7 @@ public class BibliotecaAppTest {
         libraryMember.getMyBookList().add(bookBorrowed);
 
         when(bookLibraryMock.returnItem(libraryMember, bookId)).thenReturn(bookBorrowed);
-        testIO.withUserInputs(bookId);
+        testIO.setWithUserInputs(bookId);
 
         bibliotecaApp.returnBook(libraryMember);
 
@@ -95,7 +96,7 @@ public class BibliotecaAppTest {
     public void checkMovieCheckout()throws IOException{
         LibraryMember libraryMember = new LibraryMember();
         String movieId="2";
-        testIO.withUserInputs(movieId);
+        testIO.setWithUserInputs(movieId);
         bibliotecaApp.setiLibraryType(6);
         bibliotecaApp.checkOutItem(libraryMember);
         String expected = "Enter Book IdSUCCESSFUL CHECKOUT! ENJOY THE ITEM";

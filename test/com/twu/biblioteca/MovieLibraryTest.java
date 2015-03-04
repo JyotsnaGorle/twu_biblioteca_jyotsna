@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Created by jyotsna on 02/03/15.
@@ -25,8 +26,8 @@ public class MovieLibraryTest {
     @Test
     public void isMovieCheckoutSuccessful(){
         LibraryMember libraryMember = new LibraryMember();
-    Movie movie = (Movie)movieLibrary.checkout(libraryMember, "1");
-        Assert.assertThat(movieLibrary.getListOfMovies(),hasItem(movie));
+    Movie movie = movieLibrary.checkout(libraryMember, "1");
+        Assert.assertThat(movieLibrary.getListOfMovies(),not(hasItem(movie)));
     }
 
 

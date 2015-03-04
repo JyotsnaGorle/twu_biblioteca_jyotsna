@@ -10,27 +10,21 @@ import java.util.List;
 public class IOforTest implements InputOutputManager{
     List<String> input;
     String output;
-    int i;
+    int currentReadIndex;
+
     IOforTest(){
         this.output="";
-        i=0;
+        currentReadIndex =0;
     }
 
-    IOforTest(List<String> inputValues){
-        this.input= inputValues;
-        this.output ="";
-    }
-
-    public void withUserInputs(String... inputs) {
+    public void setWithUserInputs(String... inputs) {
         this.input = Arrays.asList(inputs);
-        this.output="";
+        this.output = "";
     }
 
     @Override
     public String getInput() throws IOException {
-        if(input.size()>1)
-         return input.get(i++);
-        return input.get(i);
+        return input.get(currentReadIndex++);
     }
 
         @Override

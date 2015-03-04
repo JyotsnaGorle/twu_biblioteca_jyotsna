@@ -10,7 +10,7 @@ public class UserCredentialTest {
     @Test
     public void isLoginSuccessful(){
         UserCredentials userCredentials = new UserCredentials();
-        String custId ="1";
+        String custId ="111-111";
         String password ="hello";
         Assert.assertNotNull(userCredentials.getCustomer(custId,password));
 
