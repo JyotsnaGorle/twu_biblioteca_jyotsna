@@ -14,8 +14,6 @@ public class BibliotecaApp {
     private ILibrary iLibrary;
     private UserCredentials userCredentials;
     private String userId;
-    private BookLibrary bookLibrary;
-    private MovieLibrary movieLibrary;
 
 List<Item> borrowedItems = new ArrayList<Item>();
 
@@ -31,8 +29,6 @@ List<Item> borrowedItems = new ArrayList<Item>();
     }
     public void startApp() throws IOException {
         inputOutputManager.writeOutput("-------WELCOME TO BIBLIOTECA--------");
-        bookLibrary = new BookLibrary();
-        movieLibrary = new MovieLibrary();
         inputOutputManager.writeOutput("Enter UserId");
         String userId = inputOutputManager.getInput();
         this.userId=userId;
@@ -43,7 +39,7 @@ List<Item> borrowedItems = new ArrayList<Item>();
             }while (!loginStatus);
 
             LibraryMember libraryMember = new LibraryMember();
-            displayMenu(libraryMember);
+            displayMenu(libraryMember, new BookLibrary(), new MovieLibrary());
         }
         else adminLogin(userId);
 
@@ -80,7 +76,7 @@ List<Item> borrowedItems = new ArrayList<Item>();
     }
 
 
-    public void displayMenu(LibraryMember libraryMember) throws IOException {
+    public void displayMenu(LibraryMember libraryMember, BookLibrary bookLibrary, MovieLibrary movieLibrary) throws IOException {
         int choice;
 
         do {
@@ -95,14 +91,14 @@ List<Item> borrowedItems = new ArrayList<Item>();
                     "\n 8. My Credentials" +
                     "\n 9. LOGOUT");
             choice = Integer.parseInt(inputOutputManager.getInput());
-            setiLibraryType(choice);
+            setiLibraryType(choice, bookLibrary,movieLibrary);
             selectOption(libraryMember, choice);
             }while (choice!=9);
 
 
     }
 
-    public void setiLibraryType(int choice) {
+    public void setiLibraryType(int choice, BookLibrary bookLibrary, MovieLibrary movieLibrary) {
         if(choice<=4)
             iLibrary = bookLibrary;
     else iLibrary = movieLibrary;

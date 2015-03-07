@@ -15,18 +15,22 @@ public class BibliotecaAppTest {
 
     private BibliotecaApp bibliotecaApp;
     private IOforTest testIO;
+    private BookLibrary bookLibrary;
+    private MovieLibrary movieLibrary;
 
     @Before
     public void setUp() {
         testIO = new IOforTest();
         bibliotecaApp = new BibliotecaApp(testIO);
+        bookLibrary = new BookLibrary();
+        movieLibrary = new MovieLibrary();
     }
 
     @Test
     public void openBibliotecaApp() throws IOException {
         testIO.setWithUserInputs("111-111", "hello");
         BibliotecaApp bibliotecaAppSpy = spy(bibliotecaApp);
-        doNothing().when(bibliotecaAppSpy).displayMenu(any(LibraryMember.class));
+        doNothing().when(bibliotecaAppSpy).displayMenu(any(LibraryMember.class), new BookLibrary(), new MovieLibrary());
 
         bibliotecaAppSpy.startApp();
         String expected = "-------WELCOME TO BIBLIOTECA--------Enter UserIdEnter password";
@@ -55,9 +59,9 @@ public class BibliotecaAppTest {
         LibraryMember libraryMember = new LibraryMember();
         String itemId = "1";
         testIO.setWithUserInputs(itemId);
-        bibliotecaApp.setiLibraryType(2);
+        bibliotecaApp.setiLibraryType(2, bookLibrary, movieLibrary);
         bibliotecaApp.checkOutItem(libraryMember);
-        String expected = "Enter Book IdSUCCESSFUL CHECKOUT! ENJOY THE ITEM";
+        String expected = "Enter Item IdSUCCESSFUL CHECKOUT! ENJOY THE ITEM";
         Assert.assertEquals(expected,testIO.consoleOutput());
 
     }
@@ -67,7 +71,7 @@ public class BibliotecaAppTest {
         LibraryMember libraryMember = new LibraryMember();
         String bookId="2";
         testIO.setWithUserInputs(bookId);
-        bibliotecaApp.setiLibraryType(3);
+        bibliotecaApp.setiLibraryType(3, bookLibrary, movieLibrary);
         bibliotecaApp.returnBook(libraryMember);
         String expected ="---------your book list is empty---------";
         Assert.assertEquals(expected,testIO.consoleOutput());
@@ -77,7 +81,7 @@ public class BibliotecaAppTest {
     public void testIfBookReturnIsSuccessful() throws IOException {
         BookLibrary bookLibraryMock = mock(BookLibrary.class);
         bibliotecaApp = new BibliotecaApp(testIO);
-        bibliotecaApp.setiLibraryType(3);
+        bibliotecaApp.setiLibraryType(3, bookLibrary, movieLibrary);
         String bookId = "1";
         Book bookBorrowed = new Book(bookId, "KentBeck_TDD_byexample", "KentBeck", "2012");
         LibraryMember libraryMember = new LibraryMember();
@@ -97,9 +101,9 @@ public class BibliotecaAppTest {
         LibraryMember libraryMember = new LibraryMember();
         String movieId="2";
         testIO.setWithUserInputs(movieId);
-        bibliotecaApp.setiLibraryType(6);
+        bibliotecaApp.setiLibraryType(6, bookLibrary, movieLibrary);
         bibliotecaApp.checkOutItem(libraryMember);
-        String expected = "Enter Book IdSUCCESSFUL CHECKOUT! ENJOY THE ITEM";
+        String expected = "Enter Item IdSUCCESSFUL CHECKOUT! ENJOY THE ITEM";
         Assert.assertEquals(expected,testIO.consoleOutput());
 
     }
