@@ -39,8 +39,8 @@ sourceCompatibility=1.6
 jar{
     manifest{
         attributes 'Implementation-Title':'BibliotecaApp',
-                'Implementation-Version':2.0,
-                'com.twu.biblioteca.Main-Class':'com.twu.biblioteca.BibliotecaApp'
+                'Implementation-Version':1.0,
+                'Main-Class':'com.twu.biblioteca.BibliotecaApp'
     }
 }
 
