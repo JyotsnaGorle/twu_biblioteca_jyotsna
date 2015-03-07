@@ -30,7 +30,7 @@ public class BibliotecaAppTest {
     public void openBibliotecaApp() throws IOException {
         testIO.setWithUserInputs("111-111", "hello");
         BibliotecaApp bibliotecaAppSpy = spy(bibliotecaApp);
-        doNothing().when(bibliotecaAppSpy).displayMenu(any(LibraryMember.class), new BookLibrary(), new MovieLibrary());
+        doNothing().when(bibliotecaAppSpy).displayMenu(any(LibraryMember.class),any(BookLibrary.class),any(MovieLibrary.class));
 
         bibliotecaAppSpy.startApp();
         String expected = "-------WELCOME TO BIBLIOTECA--------Enter UserIdEnter password";
