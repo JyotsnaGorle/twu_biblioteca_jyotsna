@@ -24,9 +24,9 @@ List<Item> borrowedItems = new ArrayList<Item>();
     public static void main(String[] args) throws IOException {
         BibliotecaApp bibliotecaApp = new BibliotecaApp( new ConsoleIODevice());
         bibliotecaApp.startApp();
-
-
     }
+
+
     public void startApp() throws IOException {
         inputOutputManager.writeOutput("-------WELCOME TO BIBLIOTECA--------");
         inputOutputManager.writeOutput("Enter UserId");
