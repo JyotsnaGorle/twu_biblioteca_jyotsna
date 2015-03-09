@@ -4,6 +4,7 @@ package com.twu.biblioteca;
  * Created by jyotsna on 03/03/15.
  */
 public class Admin {
+
     String adminId;
     String adminPwd;
 
@@ -17,4 +18,6 @@ public class Admin {
             return true;
         return false;
     }
+
+
 }

@@ -9,10 +9,10 @@ import org.junit.Test;
 public class UserCredentialTest {
     @Test
     public void isLoginSuccessful(){
-        UserCredentials userCredentials = new UserCredentials();
+        LibraryMemberCredentials libraryMemberCredentials = new LibraryMemberCredentials();
         String custId ="111-111";
         String password ="hello";
-        Assert.assertNotNull(userCredentials.getCustomer(custId,password));
+        Assert.assertNotNull(libraryMemberCredentials.getCustomer(custId,password));
 
     }
 }

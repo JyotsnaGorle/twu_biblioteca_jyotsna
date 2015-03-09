@@ -7,9 +7,19 @@ import java.util.List;
  * Created by jyotsna on 25/02/15.
  */
 
-public class LibraryMember {
+public class LibraryMember  extends User{
+    String uName;
+    String emailId;
+    String phoneNo;
 
     private List<Book> myBookList = new ArrayList<Book>();
+
+    public LibraryMember(String custId, String password, String uName, String emailId, String phoneNo) {
+        super(custId, password);
+        this.uName = uName;
+        this.emailId = emailId;
+        this.phoneNo = phoneNo;
+    }
 
     public List<Movie> getMyMovieList() {
         return myMovieList;

@@ -14,7 +14,7 @@ public class BookLibraryTest {
     public void isBookCheckedOutFromBibliotecaLibrary(){
         BookLibrary library = new BookLibrary();
         Book book = (Book)library.find("1");
-        LibraryMember libraryMember = new LibraryMember();
+        LibraryMember libraryMember = new LibraryMember("111-111","hello","jolly","jolly@gmial.com","9087676565");
         Assert.assertEquals(library.checkout(libraryMember,"1"),book);
     }
 
