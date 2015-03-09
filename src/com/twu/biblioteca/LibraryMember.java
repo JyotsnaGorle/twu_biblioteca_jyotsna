@@ -54,7 +54,7 @@ public class LibraryMember  extends User{
     }
     private void displayMyMovieList() {
         if (myMovieList.isEmpty()) {
-            throw new InvalidItemException("Book List is Empty");
+            throw new InvalidItemException("Movie List is Empty");
         } else {
             for (Movie each : myMovieList) {
                 System.out.println(each.getMovieId()+" "+each.getTitle()+" "+each.getDirector()+" "+each.getYear()+" "+each.getRating());

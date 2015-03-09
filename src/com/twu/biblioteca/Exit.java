@@ -5,14 +5,14 @@ import java.io.IOException;
 /**
  * Created by jyotsna on 09/03/15.
  */
-public class Quit implements IMenuItem {
+public class Exit implements IMenuItem {
     @Override
     public int executeAction(LibraryMember libraryMember, InputOutputManager inputOutputManager) throws IOException {
-return 1;
+        return 1;
     }
 
     @Override
     public String displayMenuItem() {
-        return "Quit";
+        return "Exit";
     }
 }

@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,8 +17,8 @@ public class IOforTest implements InputOutputManager{
         currentReadIndex =0;
     }
 
-    public void setWithUserInputs(List<String> inputs) {
-        this.input = inputs;
+    public void setWithUserInputs(String... inputs) {
+        this.input = Arrays.asList(inputs);
         this.output = "";
     }
 

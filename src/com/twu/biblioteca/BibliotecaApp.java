@@ -42,22 +42,26 @@ public class BibliotecaApp {
                 loggedInMember = userLogin();
 
             }while (loggedInMember==null);
-            SelectOption(loggedInMember);
+            selectOption(loggedInMember, bookLibrary, movieLibrary);
         }
         else adminLogin(userId,bookLibrary,movieLibrary);
 
     }
 
-    private void SelectOption(LibraryMember loggedInMember) throws IOException {
-        int choice;
+    public void selectOption(LibraryMember loggedInMember, BookLibrary bookLibrary, MovieLibrary movieLibrary) throws IOException {
+        int choice,result=0;
         do {
             displayMenu();
             inputOutputManager.writeOutput("Enter your choice");
             choice = Integer.parseInt(inputOutputManager.getInput());
-            if(choice>9)
-                inputOutputManager.writeOutput("invalid choice");
-            menu.get(choice).executeAction(loggedInMember, inputOutputManager);
-        }while (choice !=9);
+            if(choice<=9)
+            result = menu.get(choice).executeAction(loggedInMember, inputOutputManager);
+            else inputOutputManager.writeOutput("invalid choice renter");
+        }while (result!=1 && result!=9);
+
+        if(result==9){
+            startApp(bookLibrary,movieLibrary);
+        }
     }
 
     private void adminLogin(String adminId, BookLibrary bookLibrary, MovieLibrary movieLibrary) throws IOException {
@@ -70,6 +74,11 @@ public class BibliotecaApp {
             {
                 for(Map.Entry<String,Book> each : bookLibrary.borrowedBooks.entrySet()){
                     inputOutputManager.writeOutput(each.getValue().getTitle()+" "+each.getValue().getAuthor()+" "+each.getValue().getBookId()+" "+each.getValue().getAuthor()+" "+each.getKey());
+                }
+            }
+            if(!movieLibrary.borrowedMovies.isEmpty()){
+                for(Map.Entry<String,Movie> each : movieLibrary.borrowedMovies.entrySet()){
+                    inputOutputManager.writeOutput(each.getValue().getTitle()+" "+each.getValue().getDirector()+" "+each.getValue().getMovieId()+" "+each.getKey());
                 }
             }
             else inputOutputManager.writeOutput("nothing borrowed yet");

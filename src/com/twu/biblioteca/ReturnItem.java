@@ -12,23 +12,20 @@ public class ReturnItem implements IMenuItem {
     }
 
     @Override
-    public void executeAction(LibraryMember libraryMember, InputOutputManager inputOutputManager) throws IOException {
+    public int executeAction(LibraryMember libraryMember, InputOutputManager inputOutputManager) throws IOException {
         if(libraryMember.getMyBookList().isEmpty()){
             inputOutputManager.writeOutput("---------your book list is empty---------");
-            return;
         }
         inputOutputManager.writeOutput("Enter Book Id");
         String bookId = inputOutputManager.getInput();
         Book returnedBook = bookLibrary.returnItem(libraryMember,bookId);
         if(returnedBook!=null){
             inputOutputManager.writeOutput("THANK YOU FOR RETURNING THE BOOK " + returnedBook.getTitle() + "\n");
-            return;
         }
         else {
             inputOutputManager.writeOutput("YOU DON'T HAVE THIS BOOK");
-            return;
         }
-
+return 0;
     }
 
     @Override

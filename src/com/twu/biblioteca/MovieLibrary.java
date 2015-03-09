@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,6 +11,7 @@ public class MovieLibrary implements ILibrary {
 
     List<Movie> listOfMovies = new ArrayList<Movie>();
 
+    HashMap<String,Movie> borrowedMovies = new HashMap<String, Movie>();
 
     public MovieLibrary() {
         MovieList movieList = new MovieList();
@@ -45,6 +47,7 @@ public class MovieLibrary implements ILibrary {
         if(movie !=null){
             listOfMovies.remove(movie);
             libraryMember.borrowMovie(movie);
+            borrowedMovies.put(libraryMember.getId(),movie);
             return movie;
         }
         return null;

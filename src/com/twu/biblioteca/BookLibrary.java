@@ -32,12 +32,12 @@ public class BookLibrary implements ILibrary {
     }
 
     @Override
-    public Object checkout(LibraryMember libraryMember,String bookId) {
+    public Book checkout(LibraryMember libraryMember,String bookId) {
         Book book_available = (Book) find(bookId);
         if (book_available != null) {
             libraryMember.borrowBook(book_available);
             booksCurrentlyInLibrary.remove(book_available);
-            borrowedBooks.put(libraryMember.getId(),book_available);
+            borrowedBooks.put(libraryMember.getId(), book_available);
             return book_available;
         } else
             return null;
