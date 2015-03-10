@@ -12,7 +12,6 @@ public class BibliotecaApp {
 
     private InputOutputManager inputOutputManager;
     private LibraryMemberCredentials libraryMemberCredentials;
-    private String userId;
     private HashMap<Integer,IMenuItem> menu;
 
 
@@ -35,11 +34,10 @@ public class BibliotecaApp {
         inputOutputManager.writeOutput("-------WELCOME TO BIBLIOTECA--------");
         inputOutputManager.writeOutput("Enter UserId");
         String userId = inputOutputManager.getInput();
-        this.userId=userId;
         if(!userId.equals("admin")){
             LibraryMember loggedInMember;
             do{
-                loggedInMember = userLogin();
+                loggedInMember = userLogin(userId);
 
             }while (loggedInMember==null);
             selectOption(loggedInMember, bookLibrary, movieLibrary);
@@ -88,7 +86,7 @@ public class BibliotecaApp {
     }
 
 
-    private LibraryMember userLogin() throws IOException {
+    private LibraryMember userLogin(String userId) throws IOException {
         inputOutputManager.writeOutput("Enter password");
         String pwd = inputOutputManager.getInput();
         libraryMemberCredentials = new LibraryMemberCredentials();
