@@ -5,7 +5,7 @@ package com.twu.biblioteca;
  */
 public interface ILibrary {
     public Object find(String itemId);
-    public void display();
+    public String display();
     public Object checkout(LibraryMember libraryMember, String itemId);
     public Object returnItem(LibraryMember libraryMember, String bookId);
 

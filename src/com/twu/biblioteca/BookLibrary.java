@@ -23,12 +23,12 @@ public class BookLibrary implements ILibrary {
     }
 
     @Override
-    public void display() {
+    public String display() {
+        String listToDisplay="";
         for(Book each : booksCurrentlyInLibrary) {
-            System.out.println("----------------------------------------------------");
-            System.out.println(each.getBookId() + " \t\t   " + each.getTitle() + " \t\t    " + each.getAuthor() + " \t \t   " + each.getYearOfPublishing());
-            System.out.println("----------------------------------------------------");
+           listToDisplay+= each.getBookId() + " \t\t   " + each.getTitle() + " \t\t    " + each.getAuthor() + " \t \t   " + each.getYearOfPublishing()+"\n";
         }
+        return listToDisplay;
     }
 
     @Override

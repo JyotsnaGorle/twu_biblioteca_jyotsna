@@ -13,7 +13,7 @@ public class DisplayMovieList implements IMenuItem {
 
     @Override
     public int executeAction(LibraryMember libraryMember, InputOutputManager inputOutputManager) throws IOException {
-        movieLibrary.display();
+        inputOutputManager.writeOutput(movieLibrary.display());
         return 0;
     }
 

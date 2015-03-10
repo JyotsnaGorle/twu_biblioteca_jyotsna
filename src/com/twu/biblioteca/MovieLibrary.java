@@ -34,11 +34,12 @@ public class MovieLibrary implements ILibrary {
     }
 
     @Override
-    public void display() {
+    public String display() {
+        String listToDisplay="";
         for(Movie each:listOfMovies){
-            System.out.println(each.getMovieId()+" "+each.getTitle()+" "+each.getDirector()+" "+each.getYear()+" "+each.getRating());
+           listToDisplay+=each.getMovieId()+" "+each.getTitle()+" "+each.getDirector()+" "+each.getYear()+" "+each.getRating()+"\n";
         }
-
+return listToDisplay;
         }
 
     @Override

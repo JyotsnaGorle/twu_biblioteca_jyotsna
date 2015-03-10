@@ -12,7 +12,11 @@ public class DisplayBookList implements IMenuItem {
 
     @Override
     public int executeAction(LibraryMember libraryMember, InputOutputManager inputOutputManager) {
-        bookLibrary.display();
+        inputOutputManager.writeOutput("----------------------------------------------------");
+        String listToDisplay = bookLibrary.display();
+        inputOutputManager.writeOutput(listToDisplay);
+        inputOutputManager.writeOutput("----------------------------------------------------");
+
         return 0;
     }
 
