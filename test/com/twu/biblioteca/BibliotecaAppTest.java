@@ -6,9 +6,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.spy;
+//import static org.mockito.Matchers.any;
+//import static org.mockito.Mockito.doNothing;
+//import static org.mockito.Mockito.spy;
 
 /**
  * Created by jyotsna on 27/02/15.
@@ -31,18 +31,18 @@ public class BibliotecaAppTest {
         libraryMember = new LibraryMember("111-111","hello","jolly","jolly@gmial.com","9087676565");
     }
 
-    @Test
-    public void openBibliotecaApp() throws IOException {
-        testIO.setWithUserInputs("111-111", "hello");
-        BibliotecaApp bibliotecaAppSpy = spy(bibliotecaApp);
-        doNothing().when(bibliotecaAppSpy).selectOption(any(LibraryMember.class),any(BookLibrary.class),any(MovieLibrary.class));
-
-        bibliotecaAppSpy.startApp(bookLibrary, movieLibrary);
-
-        String expected = "-------WELCOME TO BIBLIOTECA--------Enter UserIdEnter password";
-
-        Assert.assertEquals(expected, testIO.consoleOutput());
-    }
+//    @Test
+//    public void openBibliotecaApp() throws IOException {
+//        testIO.setWithUserInputs("111-111", "hello");
+//        BibliotecaApp bibliotecaAppSpy = spy(bibliotecaApp);
+//        doNothing().when(bibliotecaAppSpy).selectOption(any(LibraryMember.class),any(BookLibrary.class),any(MovieLibrary.class));
+//
+//        bibliotecaAppSpy.startApp(bookLibrary, movieLibrary);
+//
+//        String expected = "-------WELCOME TO BIBLIOTECA--------Enter UserIdEnter password";
+//
+//        Assert.assertEquals(expected, testIO.consoleOutput());
+//    }
 
     @Test
     public void isInvalidChoice() throws IOException {
@@ -113,41 +113,22 @@ public class BibliotecaAppTest {
         Assert.assertEquals(expected,testIO.consoleOutput());
     }
 
-//    @Test
-//    public void checkMovieCheckout()throws IOException{
-//        LibraryMember libraryMember = new LibraryMember();
-//        String movieId="2";
-//        testIO.setWithUserInputs(movieId);
-//        bibliotecaApp.setiLibraryType(6, bookLibrary, movieLibrary);
-//        bibliotecaApp.checkOutItem(libraryMember);
-//        String expected = "Enter Item IdSUCCESSFUL CHECKOUT! ENJOY THE ITEM";
-//        Assert.assertEquals(expected,testIO.consoleOutput());
-//
-//    }
-//
-//    @Test
-//    public void shouldAddToBorrowedItemListOnCheckout() throws IOException {
-//        BookLibrary bookLibrary = mock(BookLibrary.class);
-//        MovieLibrary movieLibrary = mock(MovieLibrary.class);
-//        bibliotecaApp = new BibliotecaApp(testIO, bookLibrary, movieLibrary);
-//        String bookId ="1";
-//        String movieId="2";
-//        String userId="1";
-//
-//        Book bookBorrowed = new Book(bookId, "KentBeck_TDD_byexample", "KentBeck", "2012");
-//        LibraryMember libraryMember = new LibraryMember();
-//        libraryMember.getMyBookList().add(bookBorrowed);
-//
-//        when(bookLibrary.checkout(libraryMember,bookId)).thenReturn(bookBorrowed);
-//        bibliotecaApp.addToBorrowRecord(bookBorrowed, userId);
-//
-//        Movie movieBorrowed = new Movie(movieId,"movi2","director","rating","year");
-//        libraryMember.getMyMovieList().add(movieBorrowed);
-//
-//        when(movieLibrary.checkout(libraryMember,movieId)).thenReturn(movieBorrowed);
-//        bibliotecaApp.addToBorrowRecord(movieBorrowed, userId);
-//        Assert.assertEquals(2,bibliotecaApp.borrowedItems.size());
-//    }
+    @Test
+    public void shouldCheckoutMovie()throws IOException{
+        String userFirstChoice ="6";
+        String movieIdToCheckout="2";
+
+        testIO.setWithUserInputs(userFirstChoice,movieIdToCheckout,"0");
+        bibliotecaApp.selectOption(libraryMember,bookLibrary,movieLibrary);
+        String regularMenu = "0. Exit1. Display Book " +
+                "List2. Checkout Item3. Return Item4. " +
+                "Display my Book List5. Display Movie List6." +
+                " Checkout Movie 9. LogoutEnter your choice" ;
+
+        String expected = regularMenu+"Enter Movie Id to checkoutSUCCESSFUL CHECKOUT! ENJOY THE Moviemovie2"+regularMenu;
+        Assert.assertEquals(expected,testIO.consoleOutput());
+
+    }
 
 
 }
