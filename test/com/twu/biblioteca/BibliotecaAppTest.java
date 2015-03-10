@@ -6,9 +6,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-//import static org.mockito.Matchers.any;
-//import static org.mockito.Mockito.doNothing;
-//import static org.mockito.Mockito.spy;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.spy;
 
 /**
  * Created by jyotsna on 27/02/15.
@@ -31,18 +31,18 @@ public class BibliotecaAppTest {
         libraryMember = new LibraryMember("111-111","hello","jolly","jolly@gmial.com","9087676565");
     }
 
-//    @Test
-//    public void openBibliotecaApp() throws IOException {
-//        testIO.setWithUserInputs("111-111", "hello");
-//        BibliotecaApp bibliotecaAppSpy = spy(bibliotecaApp);
-//        doNothing().when(bibliotecaAppSpy).selectOption(any(LibraryMember.class),any(BookLibrary.class),any(MovieLibrary.class));
-//
-//        bibliotecaAppSpy.startApp(bookLibrary, movieLibrary);
-//
-//        String expected = "-------WELCOME TO BIBLIOTECA--------Enter UserIdEnter password";
-//
-//        Assert.assertEquals(expected, testIO.consoleOutput());
-//    }
+    @Test
+    public void openBibliotecaApp() throws IOException {
+        testIO.setWithUserInputs("111-111", "hello");
+        BibliotecaApp bibliotecaAppSpy = spy(bibliotecaApp);
+        doNothing().when(bibliotecaAppSpy).selectOption(any(LibraryMember.class),any(BookLibrary.class),any(MovieLibrary.class));
+
+        bibliotecaAppSpy.startApp(bookLibrary, movieLibrary);
+
+        String expected = "-------WELCOME TO BIBLIOTECA--------Enter UserIdEnter password";
+
+        Assert.assertEquals(expected, testIO.consoleOutput());
+    }
 
     @Test
     public void isInvalidChoice() throws IOException {
