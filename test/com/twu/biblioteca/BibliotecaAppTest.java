@@ -74,6 +74,7 @@ public class BibliotecaAppTest {
         String bookId = "1";
         testIO.setWithUserInputs(userChoice,bookId,"0");
         bibliotecaApp.selectOption(libraryMember,bookLibrary,movieLibrary);
+
         String expected = "0. Exit1. Display Book List2. " +
                 "Checkout Item3. Return " +
                 "Item4. Display my Book List5." +

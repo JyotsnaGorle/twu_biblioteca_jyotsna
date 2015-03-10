@@ -5,7 +5,8 @@ All about this APP
 3. You can borrow books from the Library as a customer.
 4. You can also return books to the Library.
 5. You can view the list of books you have in your possesion before you return them back.
-
+6. Admin id - admin, password - pwd
+7. User id - 111-111, password - hello
 Instructions to run this code
 =================================================
 1. Once you have downloaded the code from GIT you can run it in your machine through GRADLE.
