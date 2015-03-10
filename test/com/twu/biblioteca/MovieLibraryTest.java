@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.domainObjects.Movie;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

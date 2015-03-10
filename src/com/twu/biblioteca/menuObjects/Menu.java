@@ -1,4 +1,6 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.menuObjects;
+
+import com.twu.biblioteca.*;
 
 import java.util.HashMap;
 

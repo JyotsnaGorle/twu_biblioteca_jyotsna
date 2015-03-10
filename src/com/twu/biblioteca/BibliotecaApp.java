@@ -1,5 +1,13 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.domainObjects.Admin;
+import com.twu.biblioteca.domainObjects.Book;
+import com.twu.biblioteca.domainObjects.Movie;
+import com.twu.biblioteca.inputOutputDevice.ConsoleIODevice;
+import com.twu.biblioteca.inputOutputDevice.InputOutputManager;
+import com.twu.biblioteca.menuObjects.IMenuItem;
+import com.twu.biblioteca.menuObjects.Menu;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +26,7 @@ public class BibliotecaApp {
 
     public BibliotecaApp(InputOutputManager inputOutputManager, BookLibrary bookLibrary, MovieLibrary movieLibrary) {
     this.inputOutputManager = inputOutputManager;
-        this.menu = Menu.createMenu(bookLibrary,movieLibrary);
+        this.menu = Menu.createMenu(bookLibrary, movieLibrary);
     }
 
     public static void main(String[] args) throws IOException {
@@ -65,7 +73,7 @@ public class BibliotecaApp {
     private void adminLogin(String adminId, BookLibrary bookLibrary, MovieLibrary movieLibrary) throws IOException {
         Admin admin = new Admin();
         inputOutputManager.writeOutput("enter pwd");
-        String pwd = inputOutputManager.getInput();
+        String pwd = inputOutputManager.getInput();// en-US, hi, ka, fr, de.properties,
         if(admin.adminLogin(adminId,pwd)){
             inputOutputManager.writeOutput("admin logged in");
             if(!bookLibrary.borrowedBooks.isEmpty())

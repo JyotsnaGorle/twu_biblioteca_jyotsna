@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.inputOutputDevice.InputOutputManager;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 /**
  * Created by jyotsna on 27/02/15.
  */
-public class IOforTest implements InputOutputManager{
+public class IOforTest implements InputOutputManager {
     List<String> input;
     String output;
     int currentReadIndex;

@@ -1,5 +1,7 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.domainObjects.User;
+
 import java.util.ArrayList;
 import java.util.List;
 

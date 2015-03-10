@@ -1,4 +1,4 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.domainObjects;
 
 /**
  * Created by jyotsna on 02/03/15.

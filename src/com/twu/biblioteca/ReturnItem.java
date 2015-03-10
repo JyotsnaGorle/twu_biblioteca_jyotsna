@@ -1,5 +1,9 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.domainObjects.Book;
+import com.twu.biblioteca.inputOutputDevice.InputOutputManager;
+import com.twu.biblioteca.menuObjects.IMenuItem;
+
 import java.io.IOException;
 
 /**

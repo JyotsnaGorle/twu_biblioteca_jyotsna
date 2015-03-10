@@ -1,11 +1,17 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.menuObjects;
+
+import com.twu.biblioteca.BookLibrary;
+import com.twu.biblioteca.LibraryMember;
+import com.twu.biblioteca.domainObjects.Book;
+import com.twu.biblioteca.inputOutputDevice.InputOutputManager;
+import com.twu.biblioteca.menuObjects.IMenuItem;
 
 import java.io.IOException;
 
 /**
  * Created by jyotsna on 09/03/15.
  */
-public class CheckoutBook implements IMenuItem{
+public class CheckoutBook implements IMenuItem {
     private BookLibrary bookLibrary;
 
     public CheckoutBook(BookLibrary bookLibrary) {

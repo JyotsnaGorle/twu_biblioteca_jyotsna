@@ -1,4 +1,8 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.menuObjects;
+
+import com.twu.biblioteca.LibraryMember;
+import com.twu.biblioteca.inputOutputDevice.InputOutputManager;
+import com.twu.biblioteca.menuObjects.IMenuItem;
 
 import java.io.IOException;
 

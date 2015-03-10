@@ -1,10 +1,9 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.domainObjects;
 
 /**
- * Created by jyotsna on 25/02/15.
+ * @author jyotsna
  */
 public class Book {
-
 
     private String bookId;
     private String title;

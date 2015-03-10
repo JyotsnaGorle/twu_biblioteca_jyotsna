@@ -1,9 +1,9 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.domainObjects;
 
 /**
  * Created by jyotsna on 03/03/15.
  */
-public class Admin extends User{
+public class Admin extends User {
 
 
     public Admin() {

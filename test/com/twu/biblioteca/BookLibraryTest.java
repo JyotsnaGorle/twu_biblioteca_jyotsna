@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.domainObjects.Book;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,5 +1,9 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.domainObjects.Book;
+import com.twu.biblioteca.domainObjects.Movie;
+import com.twu.biblioteca.domainObjects.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +11,7 @@ import java.util.List;
  * Created by jyotsna on 25/02/15.
  */
 
-public class LibraryMember  extends User{
+public class LibraryMember  extends User {
     String uName;
     String emailId;
     String phoneNo;
