@@ -17,7 +17,9 @@ public class Exit implements IMenuItem {
     public int executeAction(LibraryMember libraryMember, InputOutputManager inputOutputManager) throws IOException {
         return 1;
     }
-
+/**
+* Used to exit completely out of the system
+*/
     @Override
     public String displayMenuItem() {
         return "Exit";
